@@ -1,0 +1,27 @@
+[
+  {
+    "id": "1",
+    "content": "Initialize Vite + React project with Tailwind CSS",
+    "status": "completed"
+  },
+  {
+    "id": "2",
+    "content": "Create 2026 World Cup schedule data structure with match numbers, dates, and venues",
+    "status": "completed"
+  },
+  {
+    "id": "3",
+    "content": "Build interactive calendar component with filtering and sorting",
+    "status": "completed"
+  },
+  {
+    "id": "4",
+    "content": "Style with Tailwind CSS for responsive, attractive UI",
+    "status": "completed"
+  },
+  {
+    "id": "5",
+    "content": "Test the application locally",
+    "status": "completed"
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "1",
+    "content": "Add favorites state management with localStorage persistence in App.jsx",
+    "status": "completed"
+  },
+  {
+    "id": "2",
+    "content": "Add favorite toggle button (heart icon) to MatchCard component",
+    "status": "completed"
+  },
+  {
+    "id": "3",
+    "content": "Add favorites filter option to FilterBar component",
+    "status": "completed"
+  },
+  {
+    "id": "4",
+    "content": "Update filtering logic to support favorites-only view",
+    "status": "completed"
+  },
+  {
+    "id": "5",
+    "content": "Style favorites indicator and ensure it works responsively",
+    "status": "completed"
+  }
+]
