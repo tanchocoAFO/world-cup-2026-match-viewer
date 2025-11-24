@@ -61,16 +61,14 @@ const MatchCard = ({ match, onClick, isFavorite, onToggleFavorite }) => {
 
       {/* Match Info */}
       <div className="p-5">
-        {/* Match Number and Description */}
-        <div className="mb-4">
-          <div className="text-2xl font-light text-slate-900 mb-2">
+        {/* Match Number and Teams */}
+        <div className="mb-4 flex items-center justify-between">
+          <div className="text-2xl font-light text-slate-900">
             #{match.matchNumber}
           </div>
-          {match.description && (
-            <div className="text-slate-600 text-xs font-light leading-relaxed">
-              {match.description}
-            </div>
-          )}
+          <div className="text-slate-600 text-xs font-light">
+            {match.description || 'TBD vs TBD'}
+          </div>
         </div>
 
         {/* Venue */}

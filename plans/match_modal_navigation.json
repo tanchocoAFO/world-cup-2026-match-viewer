@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "content": "Create match relationship mapping functions in worldCupData.js",
+    "status": "completed"
+  },
+  {
+    "id": "2",
+    "content": "Update MatchModal to display feeder matches with clickable navigation",
+    "status": "completed"
+  },
+  {
+    "id": "3",
+    "content": "Add forward navigation (next match) to MatchModal",
+    "status": "completed"
+  },
+  {
+    "id": "4",
+    "content": "Test modal navigation between related matches",
+    "status": "completed"
+  }
+]

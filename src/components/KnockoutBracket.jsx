@@ -64,7 +64,7 @@ const KnockoutBracket = ({ onMatchClick }) => {
               M{match.matchNumber}
             </div>
             <div className="text-[11px] text-slate-900 leading-tight line-clamp-2">
-              {match.description || 'TBD'}
+              {match.description || 'TBD vs TBD'}
             </div>
           </div>
           <div className="flex items-center justify-between text-[9px] text-slate-500 pt-1.5 border-t border-slate-200">
@@ -73,32 +73,6 @@ const KnockoutBracket = ({ onMatchClick }) => {
           </div>
         </div>
       </button>
-    )
-  }
-
-  // Component to render a pair of matches with connector
-  const MatchPair = ({ matches, showConnector = false }) => {
-    return (
-      <div className="flex items-center gap-4">
-        <div className="flex flex-col gap-3">
-          <BracketMatch match={matches[0]} />
-          <BracketMatch match={matches[1]} />
-        </div>
-        {showConnector && (
-          <div className="flex items-center">
-            <div className="w-8 flex flex-col justify-center" style={{ height: '163px' }}>
-              {/* Vertical line connecting the two matches */}
-              <div className="relative h-full">
-                <div className="absolute left-0 top-0 h-full w-px bg-slate-300" style={{ left: '0' }}></div>
-                {/* Top horizontal line */}
-                <div className="absolute left-0 w-8 h-px bg-slate-300" style={{ top: '40px' }}></div>
-                {/* Bottom horizontal line */}
-                <div className="absolute left-0 w-8 h-px bg-slate-300" style={{ bottom: '40px' }}></div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
     )
   }
 
@@ -359,22 +333,14 @@ const KnockoutBracket = ({ onMatchClick }) => {
         <div className="mt-12 pt-8 border-t border-slate-200">
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 border border-slate-300 bg-white" />
+              <div className="w-3 h-3 border border-slate-300 bg-white rounded" />
               <span>Click any match for details</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-0.5 bg-slate-300" />
-              <span>Bracket connections</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-0.5 bg-amber-400" />
-              <span>Path to final</span>
             </div>
             <div className="flex items-center gap-2">
               <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span>Teams TBD after group stage</span>
+              <span>Teams TBD after group stage draw</span>
             </div>
           </div>
         </div>

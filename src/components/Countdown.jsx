@@ -8,7 +8,8 @@ const Countdown = () => {
     const calculateTimeLeft = () => {
       const now = new Date()
       const firstMatch = new Date('2026-06-11T00:00:00')
-      const drawDate = new Date('2025-12-05T00:00:00') // FIFA Draw on December 5th, 2025
+      // FIFA Draw on December 5th, 2025 at 12:00 PM Eastern Time (17:00 UTC)
+      const drawDate = new Date('2025-12-05T17:00:00Z')
       
       const diffFirstMatch = firstMatch - now
       const diffDraw = drawDate - now
@@ -22,14 +23,16 @@ const Countdown = () => {
 
       if (diffDraw > 0) {
         const days = Math.floor(diffDraw / (1000 * 60 * 60 * 24))
-        setTimeToDraw(days)
+        const hours = Math.floor((diffDraw % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        const minutes = Math.floor((diffDraw % (1000 * 60 * 60)) / (1000 * 60))
+        setTimeToDraw({ days, hours, minutes })
       } else {
         setTimeToDraw(null) // Draw has passed
       }
     }
 
     calculateTimeLeft()
-    const interval = setInterval(calculateTimeLeft, 1000 * 60 * 60) // Update every hour
+    const interval = setInterval(calculateTimeLeft, 1000 * 60) // Update every minute
 
     return () => clearInterval(interval)
   }, [])
@@ -38,13 +41,15 @@ const Countdown = () => {
 
   return (
     <div className="flex items-center gap-3">
-      {timeToDraw !== null && timeToDraw > 0 && (
+      {timeToDraw !== null && (
         <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/20 backdrop-blur-sm rounded-full border border-amber-500/50">
           <svg className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
           </svg>
-          <span className="text-amber-300 font-medium text-sm">{timeToDraw}</span>
-          <span className="text-amber-200 text-xs hidden lg:inline">days to draw</span>
+          <span className="text-amber-300 font-medium text-sm">
+            {timeToDraw.days}d {timeToDraw.hours}h {timeToDraw.minutes}m
+          </span>
+          <span className="text-amber-200 text-xs hidden lg:inline">to draw</span>
         </div>
       )}
       

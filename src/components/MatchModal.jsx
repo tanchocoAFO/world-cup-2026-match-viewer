@@ -1,14 +1,17 @@
-import { getVenue } from '../data/worldCupData'
+import { getVenue, getFeederMatches, getNextMatch } from '../data/worldCupData'
 import { useState } from 'react'
 
-const MatchModal = ({ match, onClose }) => {
+const MatchModal = ({ match, onClose, onMatchSelect }) => {
   const [shareMessage, setShareMessage] = useState('')
   const [showCalendarOptions, setShowCalendarOptions] = useState(false)
   const [showShareOptions, setShowShareOptions] = useState(false)
+  const [showGettingThere, setShowGettingThere] = useState(false)
   
   if (!match) return null
   
   const venue = getVenue(match.venue)
+  const feederMatches = getFeederMatches(match)
+  const nextMatch = getNextMatch(match)
 
   // Get stage styling
   const getStageStyle = (stage) => {
@@ -231,7 +234,7 @@ const MatchModal = ({ match, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 animate-fadeIn" onClick={onClose}>
-      <div className="bg-white max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-slideUp" onClick={(e) => e.stopPropagation()}>
+      <div className="relative bg-white max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-slideUp" onClick={(e) => e.stopPropagation()}>
         {/* Close button */}
         <button 
           onClick={onClose}
@@ -243,7 +246,7 @@ const MatchModal = ({ match, onClose }) => {
         </button>
 
         {/* Stadium Image */}
-        <div className="relative h-64 md:h-96 bg-slate-900">
+        <div className="relative h-48 md:h-64 bg-slate-900">
           <img 
             src={stadiumImage.url}
             alt={venue.name}
@@ -271,6 +274,11 @@ const MatchModal = ({ match, onClose }) => {
                 </div>
                 <div className="text-3xl font-light text-slate-900">Match #{match.matchNumber}</div>
               </div>
+              <div className="text-right">
+                <div className="text-xs uppercase tracking-wider text-slate-500 mb-1">Date & Time</div>
+                <div className="text-sm font-medium text-slate-900">{formatDate(match.date)}</div>
+                <div className="text-sm text-slate-600">TBD</div>
+              </div>
             </div>
             {match.description && (
               <div className="text-slate-700 text-sm leading-relaxed">
@@ -279,28 +287,108 @@ const MatchModal = ({ match, onClose }) => {
             )}
           </div>
 
-          {/* Date & Time */}
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div>
-              <div className="text-xs uppercase tracking-wider text-slate-500 mb-2">Date</div>
-              <div className="text-lg text-slate-900">{formatDate(match.date)}</div>
+          {/* Match Navigation - Feeder Matches */}
+          {feederMatches.length > 0 && (
+            <div className="mb-8">
+              <h3 className="text-sm uppercase tracking-wider text-slate-500 mb-4 flex items-center">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+                This match features winners from:
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {feederMatches.map((feederMatch) => {
+                  const feederVenue = getVenue(feederMatch.venue);
+                  const feederStageStyle = getStageStyle(feederMatch.stage);
+                  
+                  return (
+                    <button
+                      key={feederMatch.id}
+                      onClick={() => onMatchSelect && onMatchSelect(feederMatch)}
+                      className="text-left p-4 border-2 border-slate-200 hover:border-amber-400 hover:shadow-md transition-all rounded-lg bg-white group"
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <div className={`text-xs uppercase tracking-wider font-medium ${feederStageStyle.text} mb-1`}>
+                          {feederMatch.stage}
+                          {feederMatch.group && ` • Group ${feederMatch.group}`}
+                        </div>
+                        <svg className="w-5 h-5 text-slate-400 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                      <div className="font-medium text-slate-900 mb-2">Match #{feederMatch.matchNumber}</div>
+                      <div className="text-sm text-slate-600 mb-2">{feederMatch.description}</div>
+                      <div className="text-xs text-slate-500 flex items-center">
+                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {formatDate(feederMatch.date)} • {feederVenue.city}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <div>
-              <div className="text-xs uppercase tracking-wider text-slate-500 mb-2">Kickoff Time</div>
-              <div className="text-lg text-slate-900">TBD</div>
-            </div>
-          </div>
+          )}
 
-          {/* Getting There */}
+          {/* Match Navigation - Next Match */}
+          {nextMatch && (
+            <div className="mb-8">
+              <h3 className="text-sm uppercase tracking-wider text-slate-500 mb-4 flex items-center">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Winner advances to:
+              </h3>
+              <button
+                onClick={() => onMatchSelect && onMatchSelect(nextMatch)}
+                className="w-full text-left p-4 border-2 border-slate-200 hover:border-amber-400 hover:shadow-md transition-all rounded-lg bg-white group"
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <div className={`text-xs uppercase tracking-wider font-medium ${getStageStyle(nextMatch.stage).text} mb-1`}>
+                    {nextMatch.stage}
+                    {nextMatch.group && ` • Group ${nextMatch.group}`}
+                  </div>
+                  <svg className="w-5 h-5 text-slate-400 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+                <div className="font-medium text-slate-900 mb-2">Match #{nextMatch.matchNumber}</div>
+                <div className="text-sm text-slate-600 mb-2">{nextMatch.description}</div>
+                <div className="text-xs text-slate-500 flex items-center">
+                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {formatDate(nextMatch.date)} • {getVenue(nextMatch.venue).city}
+                </div>
+              </button>
+            </div>
+          )}
+
+          {/* Getting There - Collapsible */}
           <div className="border-t border-slate-200 pt-6">
-            <h3 className="text-xl font-light text-slate-900 mb-6 flex items-center">
-              <svg className="w-5 h-5 mr-2 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            <button
+              onClick={() => setShowGettingThere(!showGettingThere)}
+              className="w-full flex items-center justify-between text-left mb-6 group"
+            >
+              <h3 className="text-xl font-light text-slate-900 flex items-center">
+                <svg className="w-5 h-5 mr-2 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Getting There
+              </h3>
+              <svg 
+                className={`w-5 h-5 text-slate-400 transition-transform ${showGettingThere ? 'rotate-180' : ''}`}
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
-              Getting There
-            </h3>
+            </button>
             
+            {showGettingThere && (
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div>
                 <div className="text-xs uppercase tracking-wider text-slate-500 mb-2 flex items-center">
@@ -349,6 +437,7 @@ const MatchModal = ({ match, onClose }) => {
                 </div>
               </div>
             </div>
+            )}
           </div>
 
           {/* Actions */}

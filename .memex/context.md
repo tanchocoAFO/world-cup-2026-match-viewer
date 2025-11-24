@@ -1,205 +1,183 @@
-# FIFA World Cup 2026 Match Calendar Viewer
+# World Cup 2026 Match Viewer - Project Rules
 
 ## Project Overview
-Interactive web application displaying the complete 2026 FIFA World Cup match schedule (104 matches across 16 venues in USA, Mexico, and Canada). Features include favorites, countdown timers, calendar exports, sharing, directions, stadium capacity indicators, knockout bracket visualization, and filters.
+A React-based web application for viewing the FIFA World Cup 2026 schedule, featuring match cards, filters, favorites, and an interactive knockout bracket.
 
-## Tech Stack
-- **Frontend**: React + Vite
-- **Styling**: Tailwind CSS v3 (NOT v4 - important!)
-- **Data**: Static match schedule with venue information (official FIFA schedule)
-- **APIs**: Pexels API for city/venue images
+## Key Technical Implementations
 
-## Design System
+### 1. Knockout Bracket Alignment (Critical Fix)
 
-### UI Philosophy: Compact & Elegant
-- **Goal**: Maximize match visibility - calendar should feel like a calendar, not a landing page
-- **Approach**: Compact header (~80px), elegant thin date separators, immediate match visibility
-- **Aesthetic**: Editorial/magazine-like, elegant, sophisticated
+**Problem Solved:**
+The knockout bracket was displaying matches in wrong order with incorrect spacing, making it impossible to follow which matches fed into subsequent rounds.
 
-### Color Palette
-- **Primary**: slate-900, slate-800 for headers/dark sections
-- **Accent**: amber-400, amber-500, amber-600 for highlights, badges, and accents
-- **Favorites**: rose-500, rose-600 for favorite hearts and filter
-- **Background**: slate-50 for page background
-- **Gradients**: Used for depth (from-slate-900 via-slate-800 to-slate-900)
+**Root Causes:**
+1. R32 matches were ordered by match number (73, 74, 75...) instead of bracket position
+2. Spacing calculations were fundamentally wrong (confusing gap between matches with spacing between match centers)
 
-### Typography
-- Light font weights (font-light), generous tracking
-- Year "2026" highlighted in amber-400 in main title
-- Elegant thin date headers (not sticky, not heavy)
+**Solution:**
 
-### Components
-- **Cards**: Clean borders, subtle shadows, minimal design with favorite heart button in top-right
-- **Badges**: Frosted glass style (backdrop-blur, border, rounded-full)
-- **Date Headers**: Thin inline style with vertical accent bar and fade line
+#### Match Reordering
+Matches must be reordered by bracket flow, not sequential match numbers:
 
-## Data Conventions
-
-### Match Numbering Format
-- **ALWAYS use "M" prefix**: "M73", "M89", etc. (NOT "Match 73")
-- **Applies to**:
-  - Match labels in cards
-  - Match descriptions (e.g., "Winner M74 vs Winner M77")
-  - All references throughout the app
-- **Reason**: Space efficiency in compact UI
-
-### Venue Data Structure
 ```javascript
-{
-  id: 'mex',
-  name: 'Estadio Azteca',
-  city: 'Mexico City',
-  country: 'Mexico',
-  capacity: 87523  // Required field
-}
+// R32: Ordered by which pairs feed R16 matches
+const r32Matches = [
+  findR32Match(74), findR32Match(77), // Feed M89
+  findR32Match(73), findR32Match(75), // Feed M90
+  findR32Match(76), findR32Match(78), // Feed M91
+  // ... etc
+]
+
+// QF: Reordered to match bracket flow
+const qfMatches = [
+  findQFMatch(97),  // M89 + M90 (top)
+  findQFMatch(99),  // M91 + M92
+  findQFMatch(98),  // M93 + M94
+  findQFMatch(100), // M95 + M96 (bottom)
+]
 ```
 
-### Match Data Structure
-```javascript
-{
-  id: 89,
-  matchNumber: 89,
-  date: '2026-07-04',
-  time: 'TBD',
-  venue: 'phi',
-  stage: stages.R16,
-  description: 'Winner M74 vs Winner M77'  // Use "M" not "Match"
-}
+#### Spacing Mathematics
+**Key Insight:** The CSS gap between matches ≠ spacing between match centers
+
+**Constants:**
+- Match height: 80px
+- Gap within R32 pair: 12px
+- Gap between R32 pairs: 24px
+- Each R32 pair height: 80 + 12 + 80 = 172px
+- Spacing between pair starts: 172 + 24 = 196px
+
+**Calculations:**
+- **R16:** Centers on each R32 pair
+  - marginTop: 46px (to center on first R32 pair)
+  - gap: 116px (NOT 196px! = 196 - 80)
+  
+- **QF:** Centers on each R16 pair
+  - R16 pair centers are 392px apart (196 × 2)
+  - marginTop: 144px
+  - gap: 312px (= 392 - 80)
+
+- **SF:** Centers on each QF pair
+  - QF pair centers are 784px apart (392 × 2)
+  - marginTop: 340px
+  - gap: 704px (= 784 - 80)
+
+- **Final:** Centers between two SF matches
+  - marginTop: 702px
+
+**Critical Formula:**
+```
+gap_between_matches = spacing_between_parent_pair_centers - match_height
 ```
 
-## Features
+### 2. Host Country Matches
 
-### Stadium Capacity (NEW)
-- **Location**: Match modal, in "Getting There" section
-- **Display**: Shows formatted capacity (e.g., "87,523")
-- **Badge**: Large stadiums (80k+) get amber "Large" badge with star icon
-- **Grid**: Part of 4-column grid (Transit, Parking, Airport, Capacity)
+Host countries (Mexico, Canada, USA) have predetermined group stage matches. These must be labeled:
 
-### Knockout Bracket Visualization (NEW)
-- **Location**: After all calendar matches (at end of page)
-- **Design Approach**: Spacing-based grouping (NOT connecting lines)
-  - Lines were tried but caused alignment issues and visual clutter
-  - Spacing creates clear visual hierarchy without complexity
-- **Layout**:
-  - Pairs of matches that feed same next-round match grouped tightly (0.5rem gap)
-  - Different groups separated by larger gap (2rem between pairs in R32)
-  - Each subsequent round's matches vertically centered with their "parent" pair
-- **Vertical Alignment**: Uses specific rem offsets to center each match with midpoint of its parent matches
-  - R32: 0.5rem within pairs, 2rem between pairs
-  - R16: 2.25rem initial offset, 11.5rem gaps
-  - QF: 8rem initial offset, 23.5rem gaps
-  - SF: 19.75rem initial offset, 48rem gaps
-  - Final: 43.75rem offset
-- **Match Cards**: 
-  - Max width 180px
-  - Compact padding (2.5)
-  - Small text (9px-11px)
-  - Show "MX" format for match numbers
-- **Responsive**:
-  - Desktop: Horizontal flow across columns
-  - Mobile: Stacked by round with grid layout
-- **Styling**: Clean, minimal, uses same design system as rest of app
+**Format:** `"[Country] vs TBD"`
 
-### Bracket Implementation Notes
-- **Don't use SVG connecting lines**: Too complex to align properly, causes visual clutter
-- **Use spacing for visual grouping**: Much cleaner and more maintainable
-- **Alignment is tricky**: Requires precise rem calculations based on card height + gaps
-- **Test alignment**: First match (M89) should center on gap between M73 and M74
-- **Browser caching**: May need hard refresh (Ctrl+Shift+R) to see changes
+**Matches:**
+- Match 1: Mexico vs TBD (Opening Match)
+- Match 3: Canada vs TBD
+- Match 4: USA vs TBD
+- Match 27: Canada vs TBD
+- Match 28: Mexico vs TBD
+- Match 32: USA vs TBD
+- Match 51: Canada vs TBD
+- Match 53: Mexico vs TBD
+- Match 59: USA vs TBD
 
-## Header Design (Current - Left/Right Compact Layout)
+### 3. Match Card Layout
 
-### Structure
-- **Layout**: Left/right split (not centered)
-- **Left side**: 
-  - Title: "FIFA World Cup 2026" (2026 in amber-400)
-  - Subtitle: "USA • Mexico • Canada"
-- **Right side**: 
-  - Countdown timers (top) - shows days to Draw and Kickoff
-  - Stats badges (bottom): Matches, Venues, Teams
-- **Height**: ~80px total (compact)
-- **Background**: Gradient with subtle blur orbs
-- **Border**: Thin gradient line at bottom
+Match cards display team information on the same line as match number to maintain consistent card height:
 
-### Countdown Timers
-- **Component**: `src/components/Countdown.jsx`
-- **Two counters**:
-  1. Days to FIFA Draw (December 5, 2025) - amber/yellow styling
-  2. Days to Kickoff (June 11, 2026) - rose/pink styling
-- **Updates**: Every hour via setInterval
-- **Behavior**: Draw counter disappears after Dec 5, 2025
+```jsx
+<div className="mb-4 flex items-center justify-between">
+  <div className="text-2xl font-light text-slate-900">
+    #{match.matchNumber}
+  </div>
+  <div className="text-slate-600 text-xs font-light">
+    {match.description || 'TBD vs TBD'}
+  </div>
+</div>
+```
 
-## Development Environment
+**Default:** All matches without descriptions show "TBD vs TBD"
 
-### Modal Sandbox Configuration
-- **Dev server**: Runs on port 3000
-- **Server config**: Must bind to 0.0.0.0 (not localhost)
-- **Vite config**: Includes `allowedHosts: ['.modal.host']` for tunnel support
-- **Tunnel access**: Use `open_localhost` tool with port 3000
+### 4. Countdown Timer
 
-### Important: Vite Configuration
+Draw countdown shows specific time with precision:
+- **Date:** December 5, 2025 at 12:00 PM Eastern Time (17:00 UTC)
+- **Format:** Days, hours, minutes (e.g., "5d 12h 30m to draw")
+- **Update frequency:** Every minute (not hourly)
+- **Implementation:** `new Date('2025-12-05T17:00:00Z')`
+
+### 5. Modal Close Button
+
+The close button must stay positioned relative to the modal, not the page:
+
+```jsx
+<div className="relative bg-white max-w-4xl w-full max-h-[90vh] ...">
+  <button className="absolute top-4 right-4 ...">
+    {/* Close button */}
+  </button>
+</div>
+```
+
+**Key:** Add `relative` to the modal container div.
+
+### 6. Floating Action Buttons
+
+Floating buttons are stacked in bottom-right corner:
+```jsx
+<div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+  {/* Jump to Bracket button (conditional) */}
+  {/* Built with Memex badge */}
+</div>
+```
+
+Jump to Bracket button uses smooth scrolling:
 ```javascript
-// vite.config.js
-export default defineConfig({
-  server: {
-    host: '0.0.0.0',
-    port: 3000,
-    strictPort: true,
-    allowedHosts: ['.modal.host']
-  }
+document.getElementById('knockout-bracket')?.scrollIntoView({ 
+  behavior: 'smooth',
+  block: 'start'
 })
 ```
 
-## Common Issues & Solutions
+### 7. Bracket Legend
 
-### Development Issues
-1. **Bracket alignment**: Use spacing-based grouping, not lines
-2. **Data format**: Always use "M" prefix for match references
-3. **Browser cache**: Hard refresh needed after data changes (Ctrl+Shift+R or Cmd+Shift+R)
-4. **Tunnel issues**: Restart with `open_localhost` if "service unavailable"
-5. **HMR not updating**: Check terminal for errors, may need server restart
+Keep legend minimal and relevant:
+- "Click any match for details"
+- "Teams TBD after group stage draw"
 
-### Code Patterns
-1. **Updating match data**: Edit descriptions in `worldCupData.js`, use find/replace for "Match " → "M"
-2. **Adding venue info**: Update venue objects with required fields (id, name, city, country, capacity)
-3. **Bracket spacing**: Start with reasonable gaps, then fine-tune alignment with rem offsets
-4. **Modal features**: Add to MatchModal.jsx, maintain 4-column grid in "Getting There" section
-
-## Completed Features
-✅ All 16 city images working (Pexels)
-✅ Google Maps directions to all stadiums
-✅ Calendar export (Google Calendar + .ics) with all-day events
-✅ Share with URL deep linking
-✅ Compact header with left/right layout
-✅ Countdown timers to FIFA Draw (Dec 5, 2025) and first match (June 11, 2026)
-✅ Frosted glass badges for stats
-✅ Upward-opening dropdowns for all buttons
-✅ Match modal with city photos and transit info
-✅ Filters and search (5 filters on same line)
-✅ Responsive design
-✅ "Built with Memex" branding (badge + calendar exports with UTM tracking)
-✅ TBD times for all matches
-✅ Favorites feature with localStorage persistence
-✅ Correct official FIFA schedule (all 104 matches with accurate dates/venues)
-✅ **Stadium capacity indicators** with large stadium badges (80k+)
-✅ **Knockout bracket visualization** with spacing-based grouping
+Remove references to connector lines or visual elements not present.
 
 ## File Structure
-```
-src/
-├── components/
-│   ├── MatchCard.jsx         # Has favorite heart button
-│   ├── MatchModal.jsx         # Shows capacity in 4-column grid
-│   ├── FilterBar.jsx          # 5-column layout with Favorites filter
-│   ├── Countdown.jsx          # Countdown timers component
-│   └── KnockoutBracket.jsx    # NEW: Bracket visualization with spacing-based grouping
-├── data/
-│   └── worldCupData.js        # Includes capacity, uses "M" prefix in descriptions
-└── App.jsx                    # Main app, bracket appears after all matches
-```
 
-## Next Features to Consider
-- Export to Apple Calendar / Outlook (in addition to Google Calendar)
-- Print-friendly wall chart view
-- Time zone converter
-- Custom notifications/reminders
+- `src/data/worldCupData.js` - Match data, venues, stages
+- `src/components/KnockoutBracket.jsx` - Tournament bracket with precise alignment
+- `src/components/MatchCard.jsx` - Individual match display cards
+- `src/components/MatchModal.jsx` - Detailed match view modal
+- `src/components/Countdown.jsx` - Countdown timers
+- `src/components/FilterBar.jsx` - Filter controls
+- `src/App.jsx` - Main application component
+
+## Design Principles
+
+- **Apple-inspired design**: Clean, minimal, focused
+- **Responsive**: Mobile-first approach with desktop enhancements
+- **Performance**: Efficient rendering, memoized calculations
+- **Accessibility**: Proper semantic HTML, ARIA labels where needed
+
+## Technical Stack
+
+- React with Vite
+- Tailwind CSS for styling
+- No external state management (useState, useEffect, useMemo)
+- Local storage for favorites persistence
+
+## Development Commands
+
+- `npm run dev` - Start dev server (configured for port 3001)
+- Server must bind to `0.0.0.0` for Modal tunnel access
+- Configure `allowedHosts: ['.app.memex.run']` in vite.config.js

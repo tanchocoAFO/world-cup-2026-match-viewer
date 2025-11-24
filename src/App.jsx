@@ -13,6 +13,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedMatch, setSelectedMatch] = useState(null)
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
+  const [isViewingBracket, setIsViewingBracket] = useState(false)
   
   // Load favorites from localStorage
   const [favorites, setFavorites] = useState(() => {
@@ -45,6 +46,24 @@ function App() {
         setSelectedMatch(match)
       }
     }
+  }, [])
+
+  // Detect if user is viewing the bracket section
+  useEffect(() => {
+    const handleScroll = () => {
+      const bracketElement = document.getElementById('knockout-bracket')
+      if (bracketElement) {
+        const rect = bracketElement.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+        // Consider viewing bracket if it's in the viewport
+        setIsViewingBracket(rect.top < windowHeight && rect.bottom > 0)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Check initial position
+    
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   // Get unique stages for filtering
@@ -189,6 +208,8 @@ function App() {
         favoritesCount={favorites.length}
       />
 
+
+
       {/* Matches by Date */}
       <main className="container mx-auto px-4 py-8">
         {Object.keys(matchesByDate).length === 0 ? (
@@ -236,7 +257,9 @@ function App() {
 
       {/* Knockout Bracket - Show at the END after all matches */}
       {Object.keys(knockoutStageByDate).length > 0 && (
-        <KnockoutBracket onMatchClick={setSelectedMatch} />
+        <div id="knockout-bracket">
+          <KnockoutBracket onMatchClick={setSelectedMatch} />
+        </div>
       )}
 
       {/* Match Modal */}
@@ -250,35 +273,76 @@ function App() {
             url.searchParams.delete('match')
             window.history.replaceState({}, '', url)
           }}
+          onMatchSelect={setSelectedMatch}
         />
       )}
 
-      {/* Built with Memex Badge */}
-      <a
-        href="https://memex.tech?utm_source=built_with_memex"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 group"
-      >
-        <div className="px-4 py-2 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#memex-gradient)" stroke="url(#memex-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2 17L12 22L22 17" stroke="url(#memex-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2 12L12 17L22 12" stroke="url(#memex-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <defs>
-                <linearGradient id="memex-gradient" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#fbbf24"/>
-                  <stop offset="1" stopColor="#d97706"/>
-                </linearGradient>
-              </defs>
-            </svg>
-            <span className="text-sm font-light text-slate-700 tracking-wide">
-              Built with <span className="font-medium text-slate-900">Memex</span>
-            </span>
+      {/* Floating Action Buttons */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        {/* Jump to Bracket/Calendar Button */}
+        {Object.keys(knockoutStageByDate).length > 0 && (
+          <button
+            onClick={() => {
+              if (isViewingBracket) {
+                // Scroll to top when viewing bracket
+                window.scrollTo({ 
+                  top: 0,
+                  behavior: 'smooth'
+                })
+              } else {
+                // Scroll to bracket when not viewing it with offset for header visibility
+                const bracketElement = document.getElementById('knockout-bracket')
+                if (bracketElement) {
+                  const elementPosition = bracketElement.getBoundingClientRect().top + window.pageYOffset
+                  const offsetPosition = elementPosition - 100 // 100px offset for header visibility
+                  
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                  })
+                }
+              }
+            }}
+            className="group px-5 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+          >
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isViewingBracket ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+              </svg>
+              <span className="text-sm font-medium tracking-wide">
+                {isViewingBracket ? 'Jump to Calendar' : 'Jump to Bracket'}
+              </span>
+            </div>
+          </button>
+        )}
+
+        {/* Built with Memex Badge */}
+        <a
+          href="https://memex.tech?utm_source=built_with_memex"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group"
+        >
+          <div className="px-4 py-2 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#memex-gradient)" stroke="url(#memex-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="url(#memex-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="url(#memex-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <defs>
+                  <linearGradient id="memex-gradient" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#fbbf24"/>
+                    <stop offset="1" stopColor="#d97706"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span className="text-sm font-light text-slate-700 tracking-wide">
+                Built with <span className="font-medium text-slate-900">Memex</span>
+              </span>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
       {/* Footer */}
       <footer className="bg-slate-900 text-white py-12 mt-24 border-t-4 border-amber-500">

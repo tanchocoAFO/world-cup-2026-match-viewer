@@ -33,10 +33,10 @@ export const stages = {
 
 // Complete match schedule (104 total matches)
 export const matches = [
-  { id: 1, matchNumber: 1, date: '2026-06-11', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Opening Match' },
+  { id: 1, matchNumber: 1, date: '2026-06-11', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs TBD (Opening Match)' },
   { id: 2, matchNumber: 2, date: '2026-06-11', time: 'TBD', venue: 'gdl', stage: stages.GROUP, group: 'A' },
-  { id: 3, matchNumber: 3, date: '2026-06-12', time: 'TBD', venue: 'tor', stage: stages.GROUP, group: 'B' },
-  { id: 4, matchNumber: 4, date: '2026-06-12', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'D' },
+  { id: 3, matchNumber: 3, date: '2026-06-12', time: 'TBD', venue: 'tor', stage: stages.GROUP, group: 'B', description: 'Canada vs TBD' },
+  { id: 4, matchNumber: 4, date: '2026-06-12', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'D', description: 'USA vs TBD' },
   { id: 5, matchNumber: 5, date: '2026-06-13', time: 'TBD', venue: 'bos', stage: stages.GROUP, group: 'C' },
   { id: 6, matchNumber: 6, date: '2026-06-13', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'D' },
   { id: 7, matchNumber: 7, date: '2026-06-13', time: 'TBD', venue: 'nyj', stage: stages.GROUP, group: 'C' },
@@ -59,12 +59,12 @@ export const matches = [
   { id: 24, matchNumber: 24, date: '2026-06-17', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'K' },
   { id: 25, matchNumber: 25, date: '2026-06-18', time: 'TBD', venue: 'atl', stage: stages.GROUP, group: 'A' },
   { id: 26, matchNumber: 26, date: '2026-06-18', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'B' },
-  { id: 27, matchNumber: 27, date: '2026-06-18', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'B' },
-  { id: 28, matchNumber: 28, date: '2026-06-18', time: 'TBD', venue: 'gdl', stage: stages.GROUP, group: 'A' },
+  { id: 27, matchNumber: 27, date: '2026-06-18', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'B', description: 'Canada vs TBD' },
+  { id: 28, matchNumber: 28, date: '2026-06-18', time: 'TBD', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'Mexico vs TBD' },
   { id: 29, matchNumber: 29, date: '2026-06-19', time: 'TBD', venue: 'phi', stage: stages.GROUP, group: 'C' },
   { id: 30, matchNumber: 30, date: '2026-06-19', time: 'TBD', venue: 'bos', stage: stages.GROUP, group: 'C' },
   { id: 31, matchNumber: 31, date: '2026-06-19', time: 'TBD', venue: 'sf', stage: stages.GROUP, group: 'D' },
-  { id: 32, matchNumber: 32, date: '2026-06-19', time: 'TBD', venue: 'sea', stage: stages.GROUP, group: 'D' },
+  { id: 32, matchNumber: 32, date: '2026-06-19', time: 'TBD', venue: 'sea', stage: stages.GROUP, group: 'D', description: 'USA vs TBD' },
   { id: 33, matchNumber: 33, date: '2026-06-20', time: 'TBD', venue: 'tor', stage: stages.GROUP, group: 'E' },
   { id: 34, matchNumber: 34, date: '2026-06-20', time: 'TBD', venue: 'kc', stage: stages.GROUP, group: 'E' },
   { id: 35, matchNumber: 35, date: '2026-06-20', time: 'TBD', venue: 'hou', stage: stages.GROUP, group: 'F' },
@@ -83,15 +83,15 @@ export const matches = [
   { id: 48, matchNumber: 48, date: '2026-06-23', time: 'TBD', venue: 'gdl', stage: stages.GROUP, group: 'K' },
   { id: 49, matchNumber: 49, date: '2026-06-24', time: 'TBD', venue: 'mia', stage: stages.GROUP, group: 'C' },
   { id: 50, matchNumber: 50, date: '2026-06-24', time: 'TBD', venue: 'atl', stage: stages.GROUP, group: 'C' },
-  { id: 51, matchNumber: 51, date: '2026-06-24', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'B' },
+  { id: 51, matchNumber: 51, date: '2026-06-24', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'B', description: 'Canada vs TBD' },
   { id: 52, matchNumber: 52, date: '2026-06-24', time: 'TBD', venue: 'sea', stage: stages.GROUP, group: 'B' },
-  { id: 53, matchNumber: 53, date: '2026-06-24', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'A' },
+  { id: 53, matchNumber: 53, date: '2026-06-24', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs TBD' },
   { id: 54, matchNumber: 54, date: '2026-06-24', time: 'TBD', venue: 'mty', stage: stages.GROUP, group: 'A' },
   { id: 55, matchNumber: 55, date: '2026-06-25', time: 'TBD', venue: 'phi', stage: stages.GROUP, group: 'E' },
   { id: 56, matchNumber: 56, date: '2026-06-25', time: 'TBD', venue: 'nyj', stage: stages.GROUP, group: 'E' },
   { id: 57, matchNumber: 57, date: '2026-06-25', time: 'TBD', venue: 'dal', stage: stages.GROUP, group: 'F' },
   { id: 58, matchNumber: 58, date: '2026-06-25', time: 'TBD', venue: 'kc', stage: stages.GROUP, group: 'F' },
-  { id: 59, matchNumber: 59, date: '2026-06-25', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'D' },
+  { id: 59, matchNumber: 59, date: '2026-06-25', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'D', description: 'USA vs TBD' },
   { id: 60, matchNumber: 60, date: '2026-06-25', time: 'TBD', venue: 'sf', stage: stages.GROUP, group: 'D' },
   { id: 61, matchNumber: 61, date: '2026-06-26', time: 'TBD', venue: 'bos', stage: stages.GROUP, group: 'I' },
   { id: 62, matchNumber: 62, date: '2026-06-26', time: 'TBD', venue: 'tor', stage: stages.GROUP, group: 'I' },
@@ -147,6 +147,51 @@ export const getVenue = (venueId) => {
 // Helper function to get matches by stage
 export const getMatchesByStage = (stage) => {
   return matches.filter(m => m.stage === stage);
+};
+
+// Helper function to get match by match number
+export const getMatchByNumber = (matchNumber) => {
+  return matches.find(m => m.matchNumber === matchNumber);
+};
+
+// Parse match relationships from descriptions
+// Returns array of match numbers that feed into the given match
+export const getFeederMatches = (match) => {
+  if (!match || !match.description) return [];
+  
+  // Extract match numbers from descriptions like "Winner M74 vs Winner M77"
+  const matchNumberRegex = /M(\d+)/g;
+  const feederNumbers = [];
+  let matchFound;
+  
+  while ((matchFound = matchNumberRegex.exec(match.description)) !== null) {
+    feederNumbers.push(parseInt(matchFound[1]));
+  }
+  
+  return feederNumbers.map(num => getMatchByNumber(num)).filter(Boolean);
+};
+
+// Find which match this match feeds into (forward navigation)
+export const getNextMatch = (match) => {
+  if (!match) return null;
+  
+  // Search for any match whose description contains this match number
+  const matchNumberPattern = `M${match.matchNumber}`;
+  
+  // Find all matches that reference this match
+  const nextMatches = matches.filter(m => 
+    m.description && m.description.includes(matchNumberPattern) && m.matchNumber > match.matchNumber
+  );
+  
+  if (nextMatches.length === 0) return null;
+  
+  // If there are multiple matches (e.g., semi-finals can go to Final or Third Place),
+  // prioritize the one with "Winner" over "Loser"
+  const winnerMatch = nextMatches.find(m => m.description.includes(`Winner ${matchNumberPattern}`));
+  if (winnerMatch) return winnerMatch;
+  
+  // Otherwise return the first match found
+  return nextMatches[0];
 };
 
 // Helper function to get matches by date
