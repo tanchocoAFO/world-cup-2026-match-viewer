@@ -151,22 +151,22 @@ function App() {
         </div>
         
         <div className="container mx-auto px-4 py-5 relative z-10">
-          <div className="flex items-center justify-between gap-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Left: Title & Subtitle */}
             <div>
-              <h1 className="text-3xl md:text-4xl font-light tracking-tight mb-1">
+              <h1 className="text-2xl md:text-4xl font-light tracking-tight mb-1">
                 FIFA World Cup <span className="text-amber-400 font-normal">2026</span>
               </h1>
-              <p className="text-slate-300 text-sm tracking-wider uppercase">USA • Mexico • Canada</p>
+              <p className="text-slate-300 text-xs md:text-sm tracking-wider uppercase">USA • Mexico • Canada</p>
             </div>
             
             {/* Right: Countdowns & Stats */}
-            <div className="flex flex-col items-end gap-3">
+            <div className="flex flex-col md:items-end gap-2">
               {/* Countdown Timers */}
               <Countdown />
               
               {/* Stats */}
-              <div className="flex items-center gap-4 text-xs text-slate-400">
+              <div className="flex items-center gap-3 text-xs text-slate-400">
                 <div className="flex items-center gap-1.5">
                   <span className="text-amber-400 font-medium">{filteredMatches.length}</span>
                   <span>Matches</span>
@@ -176,8 +176,8 @@ function App() {
                   <span className="text-amber-400 font-medium">16</span>
                   <span>Venues</span>
                 </div>
-                <span className="text-slate-600">•</span>
-                <div className="flex items-center gap-1.5">
+                <span className="text-slate-600 hidden sm:inline">•</span>
+                <div className="hidden sm:flex items-center gap-1.5">
                   <span className="text-amber-400 font-medium">48</span>
                   <span>Teams</span>
                 </div>
@@ -255,9 +255,9 @@ function App() {
         )}
       </main>
 
-      {/* Knockout Bracket - Show at the END after all matches */}
+      {/* Knockout Bracket - Show at the END after all matches, hidden on mobile */}
       {Object.keys(knockoutStageByDate).length > 0 && (
-        <div id="knockout-bracket">
+        <div id="knockout-bracket" className="hidden lg:block">
           <KnockoutBracket onMatchClick={setSelectedMatch} />
         </div>
       )}
@@ -279,7 +279,7 @@ function App() {
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-        {/* Jump to Bracket/Calendar Button */}
+        {/* Jump to Bracket/Calendar Button - Hidden on mobile since bracket is hidden */}
         {Object.keys(knockoutStageByDate).length > 0 && (
           <button
             onClick={() => {
@@ -303,7 +303,7 @@ function App() {
                 }
               }
             }}
-            className="group px-5 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="hidden lg:flex group px-5 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

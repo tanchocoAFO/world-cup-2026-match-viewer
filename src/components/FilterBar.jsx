@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const FilterBar = ({
   selectedStage,
   setSelectedStage,
@@ -14,6 +16,8 @@ const FilterBar = ({
   setShowFavoritesOnly,
   favoritesCount
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false)
+  
   const resetFilters = () => {
     setSelectedStage('all')
     setSelectedVenue('all')
@@ -26,11 +30,39 @@ const FilterBar = ({
 
   return (
     <div className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-20">
-      <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="container mx-auto px-4 py-4">
+        {/* Mobile: Collapsible Toggle */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="lg:hidden w-full flex items-center justify-between px-4 py-3 bg-slate-50 hover:bg-slate-100 transition-colors rounded"
+        >
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            <span className="font-medium text-slate-700">Filters</span>
+            {hasActiveFilters && (
+              <span className="px-2 py-0.5 bg-amber-500 text-white text-xs rounded-full">
+                Active
+              </span>
+            )}
+          </div>
+          <svg 
+            className={`w-5 h-5 text-slate-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        {/* Filters Container - Hidden on mobile unless expanded, always visible on desktop */}
+        <div className={`${isExpanded ? 'block' : 'hidden'} lg:block mt-4 lg:mt-0`}>
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 lg:gap-4">
           {/* Search */}
-          <div className="relative">
-            <label className="block text-xs font-medium text-slate-600 mb-2 uppercase tracking-wider">
+          <div className="flex items-center gap-3 lg:block">
+            <label className="text-xs font-medium text-slate-600 uppercase tracking-wider lg:block lg:mb-2 whitespace-nowrap">
               Search
             </label>
             <input
@@ -38,19 +70,19 @@ const FilterBar = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Match #, Group, City..."
-              className="w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all text-sm"
+              className="flex-1 lg:w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all text-sm"
             />
           </div>
 
           {/* Stage Filter */}
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-2 uppercase tracking-wider">
+          <div className="flex items-center gap-3 lg:block">
+            <label className="text-xs font-medium text-slate-600 uppercase tracking-wider lg:block lg:mb-2 whitespace-nowrap">
               Stage
             </label>
             <select
               value={selectedStage}
               onChange={(e) => setSelectedStage(e.target.value)}
-              className="w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none bg-white transition-all text-sm"
+              className="flex-1 lg:w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none bg-white transition-all text-sm"
             >
               {uniqueStages.map(stage => (
                 <option key={stage} value={stage}>
@@ -61,14 +93,14 @@ const FilterBar = ({
           </div>
 
           {/* Venue Filter */}
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-2 uppercase tracking-wider">
+          <div className="flex items-center gap-3 lg:block">
+            <label className="text-xs font-medium text-slate-600 uppercase tracking-wider lg:block lg:mb-2 whitespace-nowrap">
               Venue
             </label>
             <select
               value={selectedVenue}
               onChange={(e) => setSelectedVenue(e.target.value)}
-              className="w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none bg-white transition-all text-sm"
+              className="flex-1 lg:w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none bg-white transition-all text-sm"
             >
               <option value="all">All Venues</option>
               {uniqueVenues.slice(1).map(venue => (
@@ -80,14 +112,14 @@ const FilterBar = ({
           </div>
 
           {/* Date Filter */}
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-2 uppercase tracking-wider">
+          <div className="flex items-center gap-3 lg:block">
+            <label className="text-xs font-medium text-slate-600 uppercase tracking-wider lg:block lg:mb-2 whitespace-nowrap">
               Date
             </label>
             <select
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none bg-white transition-all text-sm"
+              className="flex-1 lg:w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none bg-white transition-all text-sm"
             >
               <option value="all">All Dates</option>
               {uniqueDates.slice(1).map(date => (
@@ -102,13 +134,13 @@ const FilterBar = ({
           </div>
 
           {/* Favorites Toggle */}
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-2 uppercase tracking-wider">
+          <div className="flex items-center gap-3 lg:block">
+            <label className="text-xs font-medium text-slate-600 uppercase tracking-wider lg:block lg:mb-2 whitespace-nowrap">
               Favorites
             </label>
             <button
               onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
-              className={`w-full inline-flex items-center justify-center px-3 py-2.5 transition-all duration-200 text-sm font-light tracking-wide border ${
+              className={`flex-1 lg:w-full inline-flex items-center justify-center px-3 py-2.5 transition-all duration-200 text-sm font-light tracking-wide border ${
                 showFavoritesOnly 
                   ? 'bg-rose-500 text-white border-rose-500 hover:bg-rose-600' 
                   : 'bg-white text-slate-700 border-slate-300 hover:border-rose-400 hover:text-rose-600'
@@ -129,9 +161,9 @@ const FilterBar = ({
           </div>
         </div>
 
-        {/* Reset Button */}
-        {hasActiveFilters && (
-          <div className="mt-4 text-center">
+          {/* Reset Button */}
+          {hasActiveFilters && (
+            <div className="mt-4 text-center">
             <button
               onClick={resetFilters}
               className="inline-flex items-center px-6 py-2 bg-slate-900 text-white hover:bg-slate-800 transition-colors duration-200 text-sm font-light tracking-wide border-b-2 border-amber-500"
@@ -141,8 +173,9 @@ const FilterBar = ({
               </svg>
               Clear All Filters
             </button>
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

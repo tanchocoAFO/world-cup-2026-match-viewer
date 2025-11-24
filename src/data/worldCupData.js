@@ -175,6 +175,9 @@ export const getFeederMatches = (match) => {
 export const getNextMatch = (match) => {
   if (!match) return null;
   
+  // Only show next match for knockout stage matches
+  if (match.stage === stages.GROUP) return null;
+  
   // Search for any match whose description contains this match number
   const matchNumberPattern = `M${match.matchNumber}`;
   

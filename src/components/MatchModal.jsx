@@ -265,26 +265,25 @@ const MatchModal = ({ match, onClose, onMatchSelect }) => {
         {/* Content */}
         <div className="p-8">
           {/* Match Details */}
-          <div className={`${stageStyle.bg} border-l-4 ${stageStyle.border} p-6 mb-8`}>
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <div className={`text-xs uppercase tracking-wider font-medium ${stageStyle.text} mb-2`}>
+          <div className={`${stageStyle.bg} border-l-4 ${stageStyle.border} p-4 md:p-6 mb-8`}>
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 mb-4">
+              <div className="flex-1">
+                <div className={`text-xs uppercase tracking-wider font-medium ${stageStyle.text} mb-2 break-words`}>
                   {match.stage}
                   {match.group && ` • Group ${match.group}`}
                 </div>
-                <div className="text-3xl font-light text-slate-900">Match #{match.matchNumber}</div>
+                <div className="text-2xl md:text-3xl font-light text-slate-900">Match #{match.matchNumber}</div>
               </div>
-              <div className="text-right">
+              <div className="md:text-right">
                 <div className="text-xs uppercase tracking-wider text-slate-500 mb-1">Date & Time</div>
-                <div className="text-sm font-medium text-slate-900">{formatDate(match.date)}</div>
+                <div className="text-sm font-medium text-slate-900 break-words">{formatDate(match.date)}</div>
                 <div className="text-sm text-slate-600">TBD</div>
               </div>
             </div>
-            {match.description && (
-              <div className="text-slate-700 text-sm leading-relaxed">
-                {match.description}
-              </div>
-            )}
+            {/* Teams Display */}
+            <div className="text-slate-700 text-sm font-medium mb-2">
+              {match.description || 'TBD vs TBD'}
+            </div>
           </div>
 
           {/* Match Navigation - Feeder Matches */}

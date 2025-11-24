@@ -1,0 +1,17 @@
+[
+  {
+    "status": "completed",
+    "content": "Fix mobile modal header to prevent text bunching",
+    "id": "1"
+  },
+  {
+    "status": "completed",
+    "content": "Show TBD vs TBD for all matches without specific teams",
+    "id": "2"
+  },
+  {
+    "status": "completed",
+    "content": "Hide Jump to Bracket button on mobile",
+    "id": "3"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "content": "Tweak header layout for mobile to prevent bunching",
+    "status": "completed"
+  },
+  {
+    "id": "2",
+    "content": "Make filters collapsible by default on mobile with inline labels",
+    "status": "completed"
+  },
+  {
+    "id": "3",
+    "content": "Hide knockout bracket on mobile devices",
+    "status": "completed"
+  },
+  {
+    "id": "4",
+    "content": "Test mobile improvements",
+    "status": "completed"
+  }
+]
