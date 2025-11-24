@@ -1,183 +1,204 @@
 # World Cup 2026 Match Viewer - Project Rules
 
 ## Project Overview
-A React-based web application for viewing the FIFA World Cup 2026 schedule, featuring match cards, filters, favorites, and an interactive knockout bracket.
+A React + Vite application for viewing FIFA World Cup 2026 schedule, with interactive calendar, knockout bracket visualization, and match details with navigation between related matches.
 
-## Key Technical Implementations
+**Deployed on:** Vercel (automatic deployments from GitHub main branch)
+**GitHub:** https://github.com/tanchocoAFO/world-cup-2026-match-viewer
 
-### 1. Knockout Bracket Alignment (Critical Fix)
+## Architecture & Tech Stack
+- **Framework:** React 18 with Vite
+- **Styling:** Tailwind CSS following Apple design guidelines
+- **State:** React hooks (useState, useMemo, useEffect)
+- **Data:** Static JSON in `src/data/worldCupData.js`
+- **Deployment:** Vercel (auto-deploy on push to main)
 
-**Problem Solved:**
-The knockout bracket was displaying matches in wrong order with incorrect spacing, making it impossible to follow which matches fed into subsequent rounds.
+## Key Features
 
-**Root Causes:**
-1. R32 matches were ordered by match number (73, 74, 75...) instead of bracket position
-2. Spacing calculations were fundamentally wrong (confusing gap between matches with spacing between match centers)
+### 1. Match Navigation System
+Users can explore bracket structure by clicking through match relationships in modals:
+- **Feeder Matches:** Shows which matches feed into current match (backward navigation)
+- **Next Match:** Shows which match the winner advances to (forward navigation)
+- **Implementation:** `getFeederMatches()` and `getNextMatch()` in worldCupData.js
+- **Important:** Only knockout matches show forward navigation (group stage returns null)
 
-**Solution:**
+### 2. Mobile-First Responsive Design
 
-#### Match Reordering
-Matches must be reordered by bracket flow, not sequential match numbers:
+**Mobile Breakpoint:** `lg` (1024px) is the primary breakpoint for desktop features
 
+**Mobile Optimizations:**
+- **Header:** Vertical layout on mobile, horizontal on desktop
+- **Filters:** Collapsible by default on mobile with toggle button
+  - Labels inline with inputs on mobile (flexbox with gap-3)
+  - Labels above inputs on desktop (block layout)
+- **Bracket:** Hidden on mobile (`hidden lg:block`)
+  - Users navigate via modal navigation instead
+- **Jump to Bracket button:** Hidden on mobile (`hidden lg:flex`)
+- **Modal headers:** Stack vertically on mobile, horizontal on desktop
+
+**Pattern for responsive components:**
+```jsx
+// Collapsible on mobile, always visible on desktop
+<div className={`${isExpanded ? 'block' : 'hidden'} lg:block`}>
+
+// Inline labels on mobile, stacked on desktop
+<div className="flex items-center gap-3 lg:block">
+  <label className="whitespace-nowrap lg:block lg:mb-2">Label</label>
+  <input className="flex-1 lg:w-full" />
+</div>
+```
+
+### 3. Knockout Bracket Alignment
+The bracket uses precise pixel calculations for match alignment:
+- Each match height: 80px
+- R32 pairs: 172px total (80 + 12 gap + 80)
+- Gap between matches calculated as: `parent_pair_spacing - match_height`
+- See `.memex/context.md` for detailed spacing math
+
+### 4. Match Data Structure
+
+**Match relationships are encoded in descriptions:**
+- `"Winner M74 vs Winner M77"` - feeds from matches 74 and 77
+- `"Loser M101 vs Loser M102"` - third place match
+- Regex pattern `M(\d+)` used to extract match numbers
+
+**Navigation logic:**
+- `getFeederMatches()` - extracts all M{number} from description
+- `getNextMatch()` - finds matches referencing current match
+  - Prioritizes "Winner" matches over "Loser" matches for semi-finals
+  - Returns null for group stage matches
+
+### 5. Modal Patterns
+
+**Team Display:**
+- Show `match.description` if exists
+- Fallback to "TBD vs TBD" if no description
+- Group stage and knockout matches handled differently
+
+**Mobile Modal Fixes:**
+- Reduced padding: `p-4 md:p-6`
+- Responsive text: `text-2xl md:text-3xl`
+- Added `break-words` to prevent overflow
+- Stack layout on mobile: `flex-col md:flex-row`
+
+## Development Workflow
+
+### Git Conventions
+- **Commit messages:** Use heredoc for multi-line messages
+- **Never use:** Interactive git commands (`git rebase -i`, `git add -i`)
+- **Commit early and often**
+- **DO NOT push to remote** unless explicitly requested
+
+**Commit message format:**
+```bash
+git commit -m "$(cat <<'EOF'
+Title summarizing the change
+
+Section 1: Feature/Area
+- Bullet point details
+- More details
+
+Section 2: Another Area
+- More changes
+
+Bug Fixes:
+- Specific fixes
+EOF
+)"
+```
+
+### Deployment Process
+1. Make changes locally with Memex
+2. Commit with descriptive message
+3. Push to GitHub main branch: `git push`
+4. Vercel automatically deploys (1-2 minutes)
+5. Changes live at custom domain
+
+**No manual Vercel deployment needed** - it watches GitHub
+
+## Design System
+
+### Colors
+- **Primary Action:** Amber (amber-500, amber-600)
+- **Stages:**
+  - Final: amber-50/500/900
+  - Semi-Finals: rose-50/500/900
+  - Quarter-Finals: indigo-50/500/900
+  - R16/R32: emerald-50/500/900
+  - Group: slate-50/400/900
+
+### Interactive Elements
+- **Buttons:** Hover states with scale transforms (`hover:scale-105`)
+- **Cards:** Border transitions on hover (`hover:border-amber-400`)
+- **Collapsibles:** Rotate chevron icon on expand (`rotate-180`)
+
+### Typography
+- **Headers:** font-light for large text (text-3xl, text-4xl)
+- **Labels:** text-xs uppercase tracking-wider
+- **Body:** text-sm for descriptions
+
+## Important Patterns
+
+### Filtering Logic
+All filters use "all" as the default/reset value:
+- `selectedStage === 'all'` means no filter applied
+- Reset function sets all filters back to 'all'
+
+### Favorites
+- Stored in localStorage: `'worldcup2026-favorites'`
+- Array of match IDs
+- Persisted across sessions
+
+### Active Filters Detection
 ```javascript
-// R32: Ordered by which pairs feed R16 matches
-const r32Matches = [
-  findR32Match(74), findR32Match(77), // Feed M89
-  findR32Match(73), findR32Match(75), // Feed M90
-  findR32Match(76), findR32Match(78), // Feed M91
-  // ... etc
-]
-
-// QF: Reordered to match bracket flow
-const qfMatches = [
-  findQFMatch(97),  // M89 + M90 (top)
-  findQFMatch(99),  // M91 + M92
-  findQFMatch(98),  // M93 + M94
-  findQFMatch(100), // M95 + M96 (bottom)
-]
+const hasActiveFilters = 
+  selectedStage !== 'all' || 
+  selectedVenue !== 'all' || 
+  selectedDate !== 'all' || 
+  searchQuery !== '' || 
+  showFavoritesOnly
 ```
 
-#### Spacing Mathematics
-**Key Insight:** The CSS gap between matches ≠ spacing between match centers
+### Scroll Detection for Bracket
+Uses intersection logic to detect when bracket is in viewport:
+- Check if bracket element's `rect.top < windowHeight && rect.bottom > 0`
+- Updates button text: "Jump to Bracket" ↔ "Jump to Calendar"
 
-**Constants:**
-- Match height: 80px
-- Gap within R32 pair: 12px
-- Gap between R32 pairs: 24px
-- Each R32 pair height: 80 + 12 + 80 = 172px
-- Spacing between pair starts: 172 + 24 = 196px
+## Common Pitfalls & Solutions
 
-**Calculations:**
-- **R16:** Centers on each R32 pair
-  - marginTop: 46px (to center on first R32 pair)
-  - gap: 116px (NOT 196px! = 196 - 80)
-  
-- **QF:** Centers on each R16 pair
-  - R16 pair centers are 392px apart (196 × 2)
-  - marginTop: 144px
-  - gap: 312px (= 392 - 80)
+### Issue: Port conflicts in development
+**Solution:** Vite config uses `strictPort: false` to auto-increment port
 
-- **SF:** Centers on each QF pair
-  - QF pair centers are 784px apart (392 × 2)
-  - marginTop: 340px
-  - gap: 704px (= 784 - 80)
+### Issue: Tunnel hostname blocked
+**Solution:** `allowedHosts: ['.app.memex.run']` in vite.config.js
 
-- **Final:** Centers between two SF matches
-  - marginTop: 702px
+### Issue: Dependencies in useEffect
+**Solution:** Don't reference variables defined later in code. Use empty array `[]` if listener only needs to run once
 
-**Critical Formula:**
-```
-gap_between_matches = spacing_between_parent_pair_centers - match_height
-```
-
-### 2. Host Country Matches
-
-Host countries (Mexico, Canada, USA) have predetermined group stage matches. These must be labeled:
-
-**Format:** `"[Country] vs TBD"`
-
-**Matches:**
-- Match 1: Mexico vs TBD (Opening Match)
-- Match 3: Canada vs TBD
-- Match 4: USA vs TBD
-- Match 27: Canada vs TBD
-- Match 28: Mexico vs TBD
-- Match 32: USA vs TBD
-- Match 51: Canada vs TBD
-- Match 53: Mexico vs TBD
-- Match 59: USA vs TBD
-
-### 3. Match Card Layout
-
-Match cards display team information on the same line as match number to maintain consistent card height:
-
-```jsx
-<div className="mb-4 flex items-center justify-between">
-  <div className="text-2xl font-light text-slate-900">
-    #{match.matchNumber}
-  </div>
-  <div className="text-slate-600 text-xs font-light">
-    {match.description || 'TBD vs TBD'}
-  </div>
-</div>
-```
-
-**Default:** All matches without descriptions show "TBD vs TBD"
-
-### 4. Countdown Timer
-
-Draw countdown shows specific time with precision:
-- **Date:** December 5, 2025 at 12:00 PM Eastern Time (17:00 UTC)
-- **Format:** Days, hours, minutes (e.g., "5d 12h 30m to draw")
-- **Update frequency:** Every minute (not hourly)
-- **Implementation:** `new Date('2025-12-05T17:00:00Z')`
-
-### 5. Modal Close Button
-
-The close button must stay positioned relative to the modal, not the page:
-
-```jsx
-<div className="relative bg-white max-w-4xl w-full max-h-[90vh] ...">
-  <button className="absolute top-4 right-4 ...">
-    {/* Close button */}
-  </button>
-</div>
-```
-
-**Key:** Add `relative` to the modal container div.
-
-### 6. Floating Action Buttons
-
-Floating buttons are stacked in bottom-right corner:
-```jsx
-<div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-  {/* Jump to Bracket button (conditional) */}
-  {/* Built with Memex badge */}
-</div>
-```
-
-Jump to Bracket button uses smooth scrolling:
-```javascript
-document.getElementById('knockout-bracket')?.scrollIntoView({ 
-  behavior: 'smooth',
-  block: 'start'
-})
-```
-
-### 7. Bracket Legend
-
-Keep legend minimal and relevant:
-- "Click any match for details"
-- "Teams TBD after group stage draw"
-
-Remove references to connector lines or visual elements not present.
+### Issue: Group stage showing forward navigation
+**Solution:** Check `match.stage === stages.GROUP` and return null in `getNextMatch()`
 
 ## File Structure
+```
+src/
+├── components/
+│   ├── Countdown.jsx
+│   ├── FilterBar.jsx          # Collapsible on mobile
+│   ├── KnockoutBracket.jsx    # Hidden on mobile
+│   ├── MatchCard.jsx
+│   └── MatchModal.jsx         # Match navigation UI
+├── data/
+│   └── worldCupData.js        # Match data + navigation functions
+├── App.jsx                     # Main app, filters, layout
+└── main.jsx
+```
 
-- `src/data/worldCupData.js` - Match data, venues, stages
-- `src/components/KnockoutBracket.jsx` - Tournament bracket with precise alignment
-- `src/components/MatchCard.jsx` - Individual match display cards
-- `src/components/MatchModal.jsx` - Detailed match view modal
-- `src/components/Countdown.jsx` - Countdown timers
-- `src/components/FilterBar.jsx` - Filter controls
-- `src/App.jsx` - Main application component
-
-## Design Principles
-
-- **Apple-inspired design**: Clean, minimal, focused
-- **Responsive**: Mobile-first approach with desktop enhancements
-- **Performance**: Efficient rendering, memoized calculations
-- **Accessibility**: Proper semantic HTML, ARIA labels where needed
-
-## Technical Stack
-
-- React with Vite
-- Tailwind CSS for styling
-- No external state management (useState, useEffect, useMemo)
-- Local storage for favorites persistence
-
-## Development Commands
-
-- `npm run dev` - Start dev server (configured for port 3001)
-- Server must bind to `0.0.0.0` for Modal tunnel access
-- Configure `allowedHosts: ['.app.memex.run']` in vite.config.js
+## Testing Checklist
+- [ ] Modal navigation works both directions (feeder + next)
+- [ ] Group stage matches don't show forward navigation
+- [ ] Semi-finals show Final (not Third Place) as next match
+- [ ] Filters collapse on mobile, always visible on desktop
+- [ ] Bracket hidden on mobile, visible on desktop
+- [ ] "TBD vs TBD" shows for matches without specific teams
+- [ ] Mobile modal headers don't bunch/overflow
+- [ ] Jump to Bracket button hidden on mobile

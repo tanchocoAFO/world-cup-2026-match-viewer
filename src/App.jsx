@@ -325,17 +325,11 @@ function App() {
         >
           <div className="px-4 py-2 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <div className="flex items-center gap-2">
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#memex-gradient)" stroke="url(#memex-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 17L12 22L22 17" stroke="url(#memex-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 12L12 17L22 12" stroke="url(#memex-gradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs>
-                  <linearGradient id="memex-gradient" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#fbbf24"/>
-                    <stop offset="1" stopColor="#d97706"/>
-                  </linearGradient>
-                </defs>
-              </svg>
+              <img 
+                src="/memex-logo.svg" 
+                alt="Memex" 
+                className="w-5 h-5"
+              />
               <span className="text-sm font-light text-slate-700 tracking-wide">
                 Built with <span className="font-medium text-slate-900">Memex</span>
               </span>
