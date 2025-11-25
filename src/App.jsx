@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { matches, venues, stages, getVenue, getUniqueDates } from './data/worldCupData'
 import MatchCard from './components/MatchCard'
 import MatchModal from './components/MatchModal'
@@ -349,6 +350,7 @@ function App() {
           </p>
         </div>
       </footer>
+      <Analytics />
     </div>
   )
 }
