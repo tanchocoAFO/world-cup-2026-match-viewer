@@ -9,33 +9,41 @@ const KnockoutBracket = ({ onMatchClick }) => {
   const finalMatches = getMatchesByStage(stages.FINAL)
 
   // Reorder matches by bracket position (top to bottom)
-  // R32: Reorder by which pairs feed into R16 matches
+  // Bracket flow: R32 → R16 → QF → SF → Final
+  // M101: Winner M97 vs Winner M98
+  // M102: Winner M99 vs Winner M100
+  
   const findR32Match = (num) => r32MatchesRaw.find(m => m.matchNumber === num)
+  const findR16Match = (num) => r16MatchesRaw.find(m => m.matchNumber === num)
+  const findQFMatch = (num) => qfMatchesRaw.find(m => m.matchNumber === num)
+  
   const r32Matches = [
     findR32Match(74), findR32Match(77), // Feed M89
     findR32Match(73), findR32Match(75), // Feed M90
-    findR32Match(76), findR32Match(78), // Feed M91
-    findR32Match(79), findR32Match(80), // Feed M92
     findR32Match(83), findR32Match(84), // Feed M93
     findR32Match(81), findR32Match(82), // Feed M94
+    findR32Match(76), findR32Match(78), // Feed M91
+    findR32Match(79), findR32Match(80), // Feed M92
     findR32Match(86), findR32Match(88), // Feed M95
     findR32Match(85), findR32Match(87), // Feed M96
   ]
 
-  // R16: Already in correct order (M89-M96)
-  const r16Matches = r16MatchesRaw
+  const r16Matches = [
+    findR16Match(89),  // Feeds M97
+    findR16Match(90),  // Feeds M97
+    findR16Match(93),  // Feeds M98
+    findR16Match(94),  // Feeds M98
+    findR16Match(91),  // Feeds M99
+    findR16Match(92),  // Feeds M99
+    findR16Match(95),  // Feeds M100
+    findR16Match(96),  // Feeds M100
+  ]
 
-  // QF: Reorder by bracket position
-  // M97 <- M89, M90 (top)
-  // M99 <- M91, M92
-  // M98 <- M93, M94
-  // M100 <- M95, M96 (bottom)
-  const findQFMatch = (num) => qfMatchesRaw.find(m => m.matchNumber === num)
   const qfMatches = [
-    findQFMatch(97),  // M89 + M90
-    findQFMatch(99),  // M91 + M92
-    findQFMatch(98),  // M93 + M94
-    findQFMatch(100), // M95 + M96
+    findQFMatch(97),   // M89 + M90 → M101
+    findQFMatch(98),   // M93 + M94 → M101
+    findQFMatch(99),   // M91 + M92 → M102
+    findQFMatch(100),  // M95 + M96 → M102
   ]
 
   const formatDate = (dateStr) => {
