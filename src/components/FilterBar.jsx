@@ -172,7 +172,7 @@ const FilterBar = ({
               className={`flex-1 lg:w-full inline-flex items-center justify-center px-3 py-2.5 transition-all duration-200 text-sm font-light tracking-wide border ${
                 showGroups 
                   ? 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700' 
-                  : 'bg-white text-slate-700 border-slate-300 hover:border-blue-500 hover:text-blue-600'
+                  : 'bg-slate-900 text-white border-slate-900 hover:bg-slate-800'
               }`}
             >
               <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
