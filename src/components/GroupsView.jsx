@@ -26,12 +26,7 @@ const GroupsView = ({ onGroupClick }) => {
             >
               {/* Group Header */}
               <div className="bg-gradient-to-br from-slate-800 to-slate-900 px-3 py-2 border-b border-slate-700">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-light text-white tracking-wide">Group {group.id}</h3>
-                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center">
-                    <span className="text-xs text-white/70 font-medium">{group.teams.length}</span>
-                  </div>
-                </div>
+                <h3 className="text-lg font-light text-white tracking-wide">Group {group.id}</h3>
               </div>
               
               {/* Teams List */}

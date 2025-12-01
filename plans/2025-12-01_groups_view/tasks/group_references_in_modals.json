@@ -5,12 +5,12 @@
     "id": "1"
   },
   {
-    "status": "pending",
+    "status": "completed",
     "content": "Add qualifier logic display for Round of 32 matches (e.g., 1st Group A vs 2nd Group B)",
     "id": "2"
   },
   {
-    "status": "pending",
+    "status": "completed",
     "content": "Make group letters clickable to open group modal/view",
     "id": "3"
   },
@@ -20,7 +20,7 @@
     "id": "4"
   },
   {
-    "status": "pending",
+    "status": "completed",
     "content": "Test group references and modal interactions",
     "id": "5"
   }

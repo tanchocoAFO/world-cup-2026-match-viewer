@@ -1,11 +1,13 @@
 import { getVenue, getFeederMatches, getNextMatch, groups } from '../data/worldCupData'
 import { useState } from 'react'
+import GroupModal from './GroupModal'
 
 const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick }) => {
   const [shareMessage, setShareMessage] = useState('')
   const [showCalendarOptions, setShowCalendarOptions] = useState(false)
   const [showShareOptions, setShowShareOptions] = useState(false)
   const [showGettingThere, setShowGettingThere] = useState(false)
+  const [selectedGroupId, setSelectedGroupId] = useState(null)
   
   if (!match) return null
   
@@ -56,7 +58,7 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick }) => {
       parts.push(
         <button
           key={`group-${match.index}`}
-          onClick={() => onGroupClick && onGroupClick(groupLetter)}
+          onClick={() => setSelectedGroupId(groupLetter)}
           className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium transition-colors mx-0.5"
           title="View Group Details"
         >
@@ -317,7 +319,7 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick }) => {
                   </div>
                   {match.group && (
                     <button
-                      onClick={() => onGroupClick && onGroupClick(match.group)}
+                      onClick={() => setSelectedGroupId(match.group)}
                       className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium tracking-wide transition-colors cursor-pointer"
                       title="View Group Details"
                     >
@@ -608,6 +610,14 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick }) => {
           </div>
         </div>
       </div>
+
+      {/* Group Modal - renders on top of match modal */}
+      {selectedGroupId && (
+        <GroupModal 
+          groupId={selectedGroupId}
+          onClose={() => setSelectedGroupId(null)}
+        />
+      )}
     </div>
   )
 }
