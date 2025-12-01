@@ -300,6 +300,11 @@ function App() {
               document.querySelector('.animate-fadeIn')?.scrollIntoView({ behavior: 'smooth' })
             }, 100)
           }}
+          onFilterByGroup={(groupId) => {
+            setSelectedGroup(groupId)
+            setShowGroups(false)
+            setSelectedMatch(null)
+          }}
         />
       )}
 
@@ -383,6 +388,7 @@ function App() {
           onClose={() => setSelectedGroupModal(null)}
           onFilterByGroup={(groupId) => {
             setSelectedGroup(groupId)
+            setShowGroups(false)
             setSelectedGroupModal(null)
           }}
         />
