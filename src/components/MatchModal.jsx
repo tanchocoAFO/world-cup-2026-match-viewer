@@ -1,7 +1,7 @@
-import { getVenue, getFeederMatches, getNextMatch } from '../data/worldCupData'
+import { getVenue, getFeederMatches, getNextMatch, groups } from '../data/worldCupData'
 import { useState } from 'react'
 
-const MatchModal = ({ match, onClose, onMatchSelect }) => {
+const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick }) => {
   const [shareMessage, setShareMessage] = useState('')
   const [showCalendarOptions, setShowCalendarOptions] = useState(false)
   const [showShareOptions, setShowShareOptions] = useState(false)
@@ -33,6 +33,49 @@ const MatchModal = ({ match, onClose, onMatchSelect }) => {
 
   const isLargeStadium = (capacity) => {
     return capacity >= 80000
+  }
+
+  // Parse R32 qualifier descriptions and make groups clickable
+  const renderQualifierDescription = (description) => {
+    if (!description) return null
+    
+    // Regular expression to find group letters (A-L)
+    const groupPattern = /Group ([A-L])/g
+    const parts = []
+    let lastIndex = 0
+    let match
+    
+    while ((match = groupPattern.exec(description)) !== null) {
+      // Add text before the match
+      if (match.index > lastIndex) {
+        parts.push(description.substring(lastIndex, match.index))
+      }
+      
+      // Add clickable group badge
+      const groupLetter = match[1]
+      parts.push(
+        <button
+          key={`group-${match.index}`}
+          onClick={() => onGroupClick && onGroupClick(groupLetter)}
+          className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium transition-colors mx-0.5"
+          title="View Group Details"
+        >
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+          </svg>
+          Group {groupLetter}
+        </button>
+      )
+      
+      lastIndex = groupPattern.lastIndex
+    }
+    
+    // Add remaining text
+    if (lastIndex < description.length) {
+      parts.push(description.substring(lastIndex))
+    }
+    
+    return <span className="flex flex-wrap items-center gap-0.5">{parts}</span>
   }
 
   // Real city skyline photos from Pexels and Unsplash
@@ -268,9 +311,22 @@ const MatchModal = ({ match, onClose, onMatchSelect }) => {
           <div className={`${stageStyle.bg} border-l-4 ${stageStyle.border} p-4 md:p-6 mb-8`}>
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 mb-4">
               <div className="flex-1">
-                <div className={`text-xs uppercase tracking-wider font-medium ${stageStyle.text} mb-2 break-words`}>
-                  {match.stage}
-                  {match.group && ` • Group ${match.group}`}
+                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                  <div className={`text-xs uppercase tracking-wider font-medium ${stageStyle.text}`}>
+                    {match.stage}
+                  </div>
+                  {match.group && (
+                    <button
+                      onClick={() => onGroupClick && onGroupClick(match.group)}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium tracking-wide transition-colors cursor-pointer"
+                      title="View Group Details"
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                      </svg>
+                      Group {match.group}
+                    </button>
+                  )}
                 </div>
                 <div className="text-2xl md:text-3xl font-light text-slate-900">Match #{match.matchNumber}</div>
               </div>
@@ -280,10 +336,16 @@ const MatchModal = ({ match, onClose, onMatchSelect }) => {
                 <div className="text-sm text-slate-600">TBD</div>
               </div>
             </div>
-            {/* Teams Display */}
-            <div className="text-slate-700 text-sm font-medium mb-2">
-              {match.description || 'TBD vs TBD'}
-            </div>
+            {/* Teams Display with Qualifier Info for R32 */}
+            {match.stage === 'Round of 32' && match.description ? (
+              <div className="text-slate-700 text-sm font-medium mb-2">
+                {renderQualifierDescription(match.description)}
+              </div>
+            ) : (
+              <div className="text-slate-700 text-sm font-medium mb-2">
+                {match.description || 'TBD vs TBD'}
+              </div>
+            )}
           </div>
 
           {/* Match Navigation - Feeder Matches */}

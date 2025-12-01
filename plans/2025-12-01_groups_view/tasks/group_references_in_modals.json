@@ -1,0 +1,27 @@
+[
+  {
+    "status": "completed",
+    "content": "Add clickable group badges to group stage match modals",
+    "id": "1"
+  },
+  {
+    "status": "pending",
+    "content": "Add qualifier logic display for Round of 32 matches (e.g., 1st Group A vs 2nd Group B)",
+    "id": "2"
+  },
+  {
+    "status": "pending",
+    "content": "Make group letters clickable to open group modal/view",
+    "id": "3"
+  },
+  {
+    "status": "pending",
+    "content": "Create group modal component for detailed group view",
+    "id": "4"
+  },
+  {
+    "status": "pending",
+    "content": "Test group references and modal interactions",
+    "id": "5"
+  }
+]

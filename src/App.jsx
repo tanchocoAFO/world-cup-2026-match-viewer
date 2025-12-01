@@ -289,6 +289,14 @@ function App() {
             window.history.replaceState({}, '', url)
           }}
           onMatchSelect={setSelectedMatch}
+          onGroupClick={(groupId) => {
+            // TODO: Open group modal
+            // For now, just show groups section and scroll to it
+            setShowGroups(true)
+            setTimeout(() => {
+              document.querySelector('.animate-fadeIn')?.scrollIntoView({ behavior: 'smooth' })
+            }, 100)
+          }}
         />
       )}
 
