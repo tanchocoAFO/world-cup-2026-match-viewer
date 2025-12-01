@@ -1,204 +1,219 @@
 # World Cup 2026 Match Viewer - Project Rules
 
 ## Project Overview
-A React + Vite application for viewing FIFA World Cup 2026 schedule, with interactive calendar, knockout bracket visualization, and match details with navigation between related matches.
 
-**Deployed on:** Vercel (automatic deployments from GitHub main branch)
-**GitHub:** https://github.com/tanchocoAFO/world-cup-2026-match-viewer
+React + Vite application for viewing FIFA World Cup 2026 match schedule, including group stage and knockout bracket visualization. Deployed on Vercel with Tailwind CSS styling.
 
-## Architecture & Tech Stack
-- **Framework:** React 18 with Vite
-- **Styling:** Tailwind CSS following Apple design guidelines
-- **State:** React hooks (useState, useMemo, useEffect)
-- **Data:** Static JSON in `src/data/worldCupData.js`
-- **Deployment:** Vercel (auto-deploy on push to main)
+## Tech Stack
 
-## Key Features
+- **Framework:** React + Vite
+- **Styling:** Tailwind CSS (with custom configuration)
+- **Deployment:** Vercel
+- **Analytics:** @vercel/analytics/react
+- **Version Control:** Git/GitHub (repo: world-cup-2026-match-viewer)
 
-### 1. Match Navigation System
-Users can explore bracket structure by clicking through match relationships in modals:
-- **Feeder Matches:** Shows which matches feed into current match (backward navigation)
-- **Next Match:** Shows which match the winner advances to (forward navigation)
-- **Implementation:** `getFeederMatches()` and `getNextMatch()` in worldCupData.js
-- **Important:** Only knockout matches show forward navigation (group stage returns null)
+## Critical: Knockout Bracket Structure
 
-### 2. Mobile-First Responsive Design
+### Official FIFA Bracket Flow (Dec 2024)
 
-**Mobile Breakpoint:** `lg` (1024px) is the primary breakpoint for desktop features
+**DO NOT MODIFY** the bracket structure without verifying against FIFA updates. Current structure:
 
-**Mobile Optimizations:**
-- **Header:** Vertical layout on mobile, horizontal on desktop
-- **Filters:** Collapsible by default on mobile with toggle button
-  - Labels inline with inputs on mobile (flexbox with gap-3)
-  - Labels above inputs on desktop (block layout)
-- **Bracket:** Hidden on mobile (`hidden lg:block`)
-  - Users navigate via modal navigation instead
-- **Jump to Bracket button:** Hidden on mobile (`hidden lg:flex`)
-- **Modal headers:** Stack vertically on mobile, horizontal on desktop
+**Semi-Finals:**
+- M101: Winner M97 vs Winner M98
+- M102: Winner M99 vs Winner M100
 
-**Pattern for responsive components:**
-```jsx
-// Collapsible on mobile, always visible on desktop
-<div className={`${isExpanded ? 'block' : 'hidden'} lg:block`}>
+**Quarter-Finals (ordered for visual alignment):**
+- M97 (M89 + M90) → feeds M101
+- M98 (M93 + M94) → feeds M101
+- M99 (M91 + M92) → feeds M102
+- M100 (M95 + M96) → feeds M102
 
-// Inline labels on mobile, stacked on desktop
-<div className="flex items-center gap-3 lg:block">
-  <label className="whitespace-nowrap lg:block lg:mb-2">Label</label>
-  <input className="flex-1 lg:w-full" />
-</div>
+**Round of 16 (reordered):**
+- M89, M90, M93, M94, M91, M92, M95, M96
+
+**Round of 32 (reordered in pairs):**
+- M74+M77 → M89
+- M73+M75 → M90
+- M83+M84 → M93
+- M81+M82 → M94
+- M76+M78 → M91
+- M79+M80 → M92
+- M86+M88 → M95
+- M85+M87 → M96
+
+### Bracket Spacing Math
+
+Critical spacing calculations for visual alignment:
+- Match height: 80px
+- R32 pair gap: 12px (gap-3)
+- Between pairs gap: 24px (gap-6)
+- R32 pair total: 172px, spacing: 196px, center: 86px
+- R16 margin top: 46px, gap: 116px
+- QF margin top: 144px, gap: 312px
+- SF margin top: 340px, gap: 704px
+- Final margin top: 702px
+
+**Reference:** See `.memex/context.md` for detailed spacing calculations.
+
+## Asset Management
+
+### Public Assets (Runtime)
+All assets needed at runtime must be in `/public/` folder:
+- `/public/memex-logo.svg` - Memex logo for button
+- `/public/social-preview.png` - Social media share image
+- `/public/favicon.svg` - Soccer ball emoji favicon
+
+### Development Assets
+Source images in `/data/` folder are NOT accessible at runtime:
+- Used for development/reference only
+- Must be copied to `/public/` if needed in production
+
+## Responsive Design Patterns
+
+### Mobile Countdown Labels
+- Mobile: "Draw:" and "Kickoff:" prefix labels
+- Desktop: "to draw" and "days to kickoff" suffix labels
+- Use Tailwind responsive classes: `lg:hidden` and `hidden lg:inline`
+
+### Bracket Display
+- Desktop: Visual bracket layout with horizontal progression
+- Mobile: Stacked by round (R32, R16, QF, SF, Final)
+- Toggle via `lg:block` and `lg:hidden` classes
+
+## Social Media & SEO
+
+### Meta Tags (index.html)
+- Title: "FIFA World Cup 2026 Match Calendar"
+- Description: "Complete match schedule for FIFA World Cup 2026. Track all 104 matches across USA, Canada & Mexico."
+- Open Graph tags for Facebook/LinkedIn
+- Twitter Card tags with `summary_large_image`
+- Social preview image: 1200x630px recommended
+
+### Favicon
+- Soccer ball emoji (⚽) as SVG favicon
+- Path: `/public/favicon.svg`
+
+### Memex Branding
+- "Built with Memex" button with logo
+- UTM tracking: `utm_source=built_with_memex`
+- Component available in `/built-with-memex-component/` for reuse
+
+## Analytics
+
+### Vercel Analytics
+- Package: `@vercel/analytics`
+- Import: `import { Analytics } from '@vercel/analytics/react'`
+- Usage: Add `<Analytics />` component at end of App.jsx
+- Auto-tracks page views when deployed to Vercel
+
+## Group Stage Match Structure
+
+### Position/Pot System
+Groups have position assignments (e.g., GA: 1, 3, 2, 4 means Position 1=Pot 1, Position 2=Pot 3, etc.)
+
+**IMPORTANT:** Match numbering within matchdays does NOT follow a consistent pattern. Don't assume higher-numbered matches always have Pot 1 teams.
+
+### Known Host Teams
+- Group A: Mexico (Pot 1)
+- Group B: Canada (Pot 1)
+- Group D: USA (Pot 1)
+
+## Development Server Configuration
+
+### Vite Config (vite.config.js)
+Required for external access (Vercel preview, tunnels):
+```javascript
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    host: '0.0.0.0',        // Bind to all interfaces
+    port: 3000,
+    strictPort: false,
+    allowedHosts: ['.app.memex.run']  // Allow tunnel hostnames
+  }
+})
 ```
 
-### 3. Knockout Bracket Alignment
-The bracket uses precise pixel calculations for match alignment:
-- Each match height: 80px
-- R32 pairs: 172px total (80 + 12 gap + 80)
-- Gap between matches calculated as: `parent_pair_spacing - match_height`
-- See `.memex/context.md` for detailed spacing math
+### Starting Server
+Use varying ports (3000-3005) to avoid conflicts:
+```bash
+npm run dev -- --host 0.0.0.0 --port 3001
+```
 
-### 4. Match Data Structure
+## Git Workflow
 
-**Match relationships are encoded in descriptions:**
-- `"Winner M74 vs Winner M77"` - feeds from matches 74 and 77
-- `"Loser M101 vs Loser M102"` - third place match
-- Regex pattern `M(\d+)` used to extract match numbers
-
-**Navigation logic:**
-- `getFeederMatches()` - extracts all M{number} from description
-- `getNextMatch()` - finds matches referencing current match
-  - Prioritizes "Winner" matches over "Loser" matches for semi-finals
-  - Returns null for group stage matches
-
-### 5. Modal Patterns
-
-**Team Display:**
-- Show `match.description` if exists
-- Fallback to "TBD vs TBD" if no description
-- Group stage and knockout matches handled differently
-
-**Mobile Modal Fixes:**
-- Reduced padding: `p-4 md:p-6`
-- Responsive text: `text-2xl md:text-3xl`
-- Added `break-words` to prevent overflow
-- Stack layout on mobile: `flex-col md:flex-row`
-
-## Development Workflow
-
-### Git Conventions
-- **Commit messages:** Use heredoc for multi-line messages
-- **Never use:** Interactive git commands (`git rebase -i`, `git add -i`)
-- **Commit early and often**
-- **DO NOT push to remote** unless explicitly requested
-
-**Commit message format:**
+### Commit Messages
+Use HEREDOC format for multi-line commits:
 ```bash
 git commit -m "$(cat <<'EOF'
-Title summarizing the change
+Title of commit
 
-Section 1: Feature/Area
-- Bullet point details
-- More details
-
-Section 2: Another Area
-- More changes
-
-Bug Fixes:
-- Specific fixes
+- Bullet point 1
+- Bullet point 2
 EOF
 )"
 ```
 
-### Deployment Process
-1. Make changes locally with Memex
-2. Commit with descriptive message
-3. Push to GitHub main branch: `git push`
-4. Vercel automatically deploys (1-2 minutes)
-5. Changes live at custom domain
+### Safety
+- Commit early and often
+- Never use interactive git commands (-i flag)
+- Don't push unless explicitly requested
 
-**No manual Vercel deployment needed** - it watches GitHub
+## Deployment
 
-## Design System
+### Vercel
+- Auto-deploys from main branch
+- Build command: `npm run build`
+- Output directory: `dist`
+- Environment: Node.js
 
-### Colors
-- **Primary Action:** Amber (amber-500, amber-600)
-- **Stages:**
-  - Final: amber-50/500/900
-  - Semi-Finals: rose-50/500/900
-  - Quarter-Finals: indigo-50/500/900
-  - R16/R32: emerald-50/500/900
-  - Group: slate-50/400/900
+### Post-Deployment Checklist
+- Verify social preview image loads
+- Check favicon appears in browser tab
+- Confirm analytics tracking (wait 30 seconds for data)
+- Test bracket alignment on desktop and mobile
 
-### Interactive Elements
-- **Buttons:** Hover states with scale transforms (`hover:scale-105`)
-- **Cards:** Border transitions on hover (`hover:border-amber-400`)
-- **Collapsibles:** Rotate chevron icon on expand (`rotate-180`)
+## Reusable Components
 
-### Typography
-- **Headers:** font-light for large text (text-3xl, text-4xl)
-- **Labels:** text-xs uppercase tracking-wider
-- **Body:** text-sm for descriptions
+### Built with Memex Component
+Package location: `/built-with-memex-component/`
 
-## Important Patterns
+Files:
+- `BuiltWithMemex.jsx` - React component
+- `memex-logo.svg` - Required logo asset
+- `README.md` - Full documentation
+- `EXAMPLES.md` - Usage examples
+- `QUICK-START.md` - 5-minute setup guide
 
-### Filtering Logic
-All filters use "all" as the default/reset value:
-- `selectedStage === 'all'` means no filter applied
-- Reset function sets all filters back to 'all'
+Requirements:
+- React
+- Tailwind CSS
+- Logo in `/public/memex-logo.svg`
 
-### Favorites
-- Stored in localStorage: `'worldcup2026-favorites'`
-- Array of match IDs
-- Persisted across sessions
+## Important Dates
 
-### Active Filters Detection
-```javascript
-const hasActiveFilters = 
-  selectedStage !== 'all' || 
-  selectedVenue !== 'all' || 
-  selectedDate !== 'all' || 
-  searchQuery !== '' || 
-  showFavoritesOnly
-```
+- FIFA Draw: December 5, 2025 at 12:00 PM ET (17:00 UTC)
+- First Match: June 11, 2026
+- Final: July 19, 2026 at MetLife Stadium
 
-### Scroll Detection for Bracket
-Uses intersection logic to detect when bracket is in viewport:
-- Check if bracket element's `rect.top < windowHeight && rect.bottom > 0`
-- Updates button text: "Jump to Bracket" ↔ "Jump to Calendar"
+## Common Issues & Solutions
 
-## Common Pitfalls & Solutions
+### Images Not Loading
+- Check asset is in `/public/` not `/data/`
+- Verify path starts with `/` (e.g., `/memex-logo.svg`)
+- Restart dev server if asset was just added
 
-### Issue: Port conflicts in development
-**Solution:** Vite config uses `strictPort: false` to auto-increment port
+### Bracket Alignment Issues
+- Don't modify spacing calculations without testing all rounds
+- Verify match reordering matches FIFA structure
+- Check both desktop and mobile layouts
 
-### Issue: Tunnel hostname blocked
-**Solution:** `allowedHosts: ['.app.memex.run']` in vite.config.js
+### Analytics Not Working
+- Ensure `@vercel/analytics` is installed
+- Verify `<Analytics />` is added to App.jsx
+- Analytics only work on Vercel deployment, not localhost
 
-### Issue: Dependencies in useEffect
-**Solution:** Don't reference variables defined later in code. Use empty array `[]` if listener only needs to run once
-
-### Issue: Group stage showing forward navigation
-**Solution:** Check `match.stage === stages.GROUP` and return null in `getNextMatch()`
-
-## File Structure
-```
-src/
-├── components/
-│   ├── Countdown.jsx
-│   ├── FilterBar.jsx          # Collapsible on mobile
-│   ├── KnockoutBracket.jsx    # Hidden on mobile
-│   ├── MatchCard.jsx
-│   └── MatchModal.jsx         # Match navigation UI
-├── data/
-│   └── worldCupData.js        # Match data + navigation functions
-├── App.jsx                     # Main app, filters, layout
-└── main.jsx
-```
-
-## Testing Checklist
-- [ ] Modal navigation works both directions (feeder + next)
-- [ ] Group stage matches don't show forward navigation
-- [ ] Semi-finals show Final (not Third Place) as next match
-- [ ] Filters collapse on mobile, always visible on desktop
-- [ ] Bracket hidden on mobile, visible on desktop
-- [ ] "TBD vs TBD" shows for matches without specific teams
-- [ ] Mobile modal headers don't bunch/overflow
-- [ ] Jump to Bracket button hidden on mobile
+### Dev Server Not Accessible
+- Confirm `host: '0.0.0.0'` in vite.config.js
+- Check `allowedHosts` includes domain pattern
+- Try different port (3000-3005 range)

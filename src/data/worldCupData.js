@@ -31,6 +31,118 @@ export const stages = {
   FINAL: 'Final'
 };
 
+// Groups structure - teams will be assigned after the draw on Dec 5, 2025
+export const groups = {
+  A: {
+    id: 'A',
+    teams: [
+      { name: 'Mexico', pot: 1, flag: '🇲🇽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  B: {
+    id: 'B',
+    teams: [
+      { name: 'Canada', pot: 1, flag: '🇨🇦' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  C: {
+    id: 'C',
+    teams: [
+      { name: 'TBD', pot: 1, flag: '⚽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  D: {
+    id: 'D',
+    teams: [
+      { name: 'USA', pot: 1, flag: '🇺🇸' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  E: {
+    id: 'E',
+    teams: [
+      { name: 'TBD', pot: 1, flag: '⚽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  F: {
+    id: 'F',
+    teams: [
+      { name: 'TBD', pot: 1, flag: '⚽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  G: {
+    id: 'G',
+    teams: [
+      { name: 'TBD', pot: 1, flag: '⚽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  H: {
+    id: 'H',
+    teams: [
+      { name: 'TBD', pot: 1, flag: '⚽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  I: {
+    id: 'I',
+    teams: [
+      { name: 'TBD', pot: 1, flag: '⚽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  J: {
+    id: 'J',
+    teams: [
+      { name: 'TBD', pot: 1, flag: '⚽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  K: {
+    id: 'K',
+    teams: [
+      { name: 'TBD', pot: 1, flag: '⚽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  },
+  L: {
+    id: 'L',
+    teams: [
+      { name: 'TBD', pot: 1, flag: '⚽' },
+      { name: 'TBD', pot: 2, flag: '⚽' },
+      { name: 'TBD', pot: 3, flag: '⚽' },
+      { name: 'TBD', pot: 4, flag: '⚽' }
+    ]
+  }
+};
+
 // Complete match schedule (104 total matches)
 export const matches = [
   { id: 1, matchNumber: 1, date: '2026-06-11', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs TBD (Opening Match)' },
