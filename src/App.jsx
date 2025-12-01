@@ -7,9 +7,11 @@ import FilterBar from './components/FilterBar'
 import Countdown from './components/Countdown'
 import KnockoutBracket from './components/KnockoutBracket'
 import GroupsView from './components/GroupsView'
+import GroupModal from './components/GroupModal'
 
 function App() {
   const [selectedStage, setSelectedStage] = useState('all')
+  const [selectedGroup, setSelectedGroup] = useState('all')
   const [selectedVenue, setSelectedVenue] = useState('all')
   const [selectedDate, setSelectedDate] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -17,6 +19,7 @@ function App() {
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
   const [isViewingBracket, setIsViewingBracket] = useState(false)
   const [showGroups, setShowGroups] = useState(false)
+  const [selectedGroupModal, setSelectedGroupModal] = useState(null)
   
   // Load favorites from localStorage
   const [favorites, setFavorites] = useState(() => {
@@ -88,6 +91,7 @@ function App() {
   const filteredMatches = useMemo(() => {
     return matches.filter(match => {
       const stageMatch = selectedStage === 'all' || match.stage === selectedStage
+      const groupMatch = selectedGroup === 'all' || match.group === selectedGroup
       const venueMatch = selectedVenue === 'all' || match.venue === selectedVenue
       const dateMatch = selectedDate === 'all' || match.date === selectedDate
       const searchMatch = searchQuery === '' || 
@@ -96,9 +100,9 @@ function App() {
         getVenue(match.venue).city.toLowerCase().includes(searchQuery.toLowerCase())
       const favoritesMatch = !showFavoritesOnly || favorites.includes(match.id)
       
-      return stageMatch && venueMatch && dateMatch && searchMatch && favoritesMatch
+      return stageMatch && groupMatch && venueMatch && dateMatch && searchMatch && favoritesMatch
     })
-  }, [selectedStage, selectedVenue, selectedDate, searchQuery, showFavoritesOnly, favorites])
+  }, [selectedStage, selectedGroup, selectedVenue, selectedDate, searchQuery, showFavoritesOnly, favorites])
 
   // Group matches by date
   const matchesByDate = useMemo(() => {
@@ -197,6 +201,8 @@ function App() {
       <FilterBar
         selectedStage={selectedStage}
         setSelectedStage={setSelectedStage}
+        selectedGroup={selectedGroup}
+        setSelectedGroup={setSelectedGroup}
         selectedVenue={selectedVenue}
         setSelectedVenue={setSelectedVenue}
         selectedDate={selectedDate}
@@ -217,10 +223,7 @@ function App() {
       {showGroups && (
         <div className="animate-fadeIn">
           <GroupsView 
-            onGroupClick={(groupId) => {
-              // TODO: Implement group modal or filter by group
-              console.log('Group clicked:', groupId)
-            }} 
+            onGroupClick={(groupId) => setSelectedGroupModal(groupId)} 
           />
         </div>
       )}
@@ -372,6 +375,19 @@ function App() {
           </p>
         </div>
       </footer>
+
+      {/* Group Modal - Standalone */}
+      {selectedGroupModal && (
+        <GroupModal 
+          groupId={selectedGroupModal}
+          onClose={() => setSelectedGroupModal(null)}
+          onFilterByGroup={(groupId) => {
+            setSelectedGroup(groupId)
+            setSelectedGroupModal(null)
+          }}
+        />
+      )}
+
       <Analytics />
     </div>
   )
