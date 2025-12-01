@@ -14,7 +14,9 @@ const FilterBar = ({
   uniqueDates,
   showFavoritesOnly,
   setShowFavoritesOnly,
-  favoritesCount
+  favoritesCount,
+  showGroups,
+  setShowGroups
 }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   
@@ -59,7 +61,7 @@ const FilterBar = ({
 
         {/* Filters Container - Hidden on mobile unless expanded, always visible on desktop */}
         <div className={`${isExpanded ? 'block' : 'hidden'} lg:block mt-4 lg:mt-0`}>
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 lg:gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-6 gap-3 lg:gap-4">
           {/* Search */}
           <div className="flex items-center gap-3 lg:block">
             <label className="text-xs font-medium text-slate-600 uppercase tracking-wider lg:block lg:mb-2 whitespace-nowrap">
@@ -157,6 +159,26 @@ const FilterBar = ({
                   {favoritesCount}
                 </span>
               )}
+            </button>
+          </div>
+
+          {/* Groups Toggle */}
+          <div className="flex items-center gap-3 lg:block">
+            <label className="text-xs font-medium text-slate-600 uppercase tracking-wider lg:block lg:mb-2 whitespace-nowrap">
+              Groups
+            </label>
+            <button
+              onClick={() => setShowGroups(!showGroups)}
+              className={`flex-1 lg:w-full inline-flex items-center justify-center px-3 py-2.5 transition-all duration-200 text-sm font-light tracking-wide border ${
+                showGroups 
+                  ? 'bg-amber-500 text-white border-amber-500 hover:bg-amber-600' 
+                  : 'bg-white text-slate-700 border-slate-300 hover:border-amber-400 hover:text-amber-600'
+              }`}
+            >
+              <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+              </svg>
+              {showGroups ? 'Hide' : 'Show'}
             </button>
           </div>
         </div>

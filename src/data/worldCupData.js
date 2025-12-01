@@ -32,113 +32,114 @@ export const stages = {
 };
 
 // Groups structure - teams will be assigned after the draw on Dec 5, 2025
+// Position order follows FIFA's draw allocation (not pot order)
 export const groups = {
   A: {
     id: 'A',
     teams: [
-      { name: 'Mexico', pot: 1, flag: '🇲🇽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'Mexico', pot: 1, flag: '🇲🇽', position: 1 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 4 }
     ]
   },
   B: {
     id: 'B',
     teams: [
-      { name: 'Canada', pot: 1, flag: '🇨🇦' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'Canada', pot: 1, flag: '🇨🇦', position: 1 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 4 }
     ]
   },
   C: {
     id: 'C',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 4 }
     ]
   },
   D: {
     id: 'D',
     teams: [
-      { name: 'USA', pot: 1, flag: '🇺🇸' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'USA', pot: 1, flag: '🇺🇸', position: 1 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 4 }
     ]
   },
   E: {
     id: 'E',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 4 }
     ]
   },
   F: {
     id: 'F',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 4 }
     ]
   },
   G: {
     id: 'G',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 4 }
     ]
   },
   H: {
     id: 'H',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 4 }
     ]
   },
   I: {
     id: 'I',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 4 }
     ]
   },
   J: {
     id: 'J',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 4 }
     ]
   },
   K: {
     id: 'K',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 4 }
     ]
   },
   L: {
     id: 'L',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽' },
-      { name: 'TBD', pot: 2, flag: '⚽' },
-      { name: 'TBD', pot: 3, flag: '⚽' },
-      { name: 'TBD', pot: 4, flag: '⚽' }
+      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 4 }
     ]
   }
 };

@@ -1,27 +1,27 @@
 [
   {
+    "status": "completed",
     "id": "1",
-    "content": "Add groups data structure to worldCupData.js (12 groups A-L with teams, most as TBD)",
-    "status": "completed"
+    "content": "Add groups data structure to worldCupData.js (12 groups A-L with teams, most as TBD)"
   },
   {
+    "status": "completed",
     "id": "2",
-    "content": "Create GroupsView component with grid layout and group cards",
-    "status": "completed"
+    "content": "Create GroupsView component with grid layout and group cards"
   },
   {
+    "status": "completed",
     "id": "3",
-    "content": "Add toggle button and collapsible state to App.jsx between Countdown and FilterBar",
-    "status": "completed"
+    "content": "Add toggle button and collapsible state to App.jsx between Countdown and FilterBar"
   },
   {
+    "status": "completed",
     "id": "4",
-    "content": "Style GroupsView with expand/collapse animation and responsive grid",
-    "status": "completed"
+    "content": "Style GroupsView with expand/collapse animation and responsive grid"
   },
   {
+    "status": "completed",
     "id": "5",
-    "content": "Test groups view display and toggle behavior",
-    "status": "pending"
+    "content": "Test groups view display and toggle behavior"
   }
 ]
