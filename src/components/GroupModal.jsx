@@ -1,6 +1,6 @@
 import { groups } from '../data/worldCupData'
 
-const GroupModal = ({ groupId, onClose, onFilterByGroup }) => {
+const GroupModal = ({ groupId, onClose, onFilterByGroup, onFilterByTeam }) => {
   if (!groupId) return null
   
   const group = groups[groupId]
@@ -58,6 +58,15 @@ const GroupModal = ({ groupId, onClose, onFilterByGroup }) => {
                     <div className="text-xs text-slate-500">Pot {team.pot}</div>
                   </div>
                 </div>
+                {team.name !== 'TBD' && onFilterByTeam && (
+                  <button
+                    onClick={() => onFilterByTeam(team.name)}
+                    className="px-3 py-1.5 bg-slate-600 hover:bg-slate-700 text-white text-xs font-medium transition-colors"
+                    title={`View ${team.name} matches`}
+                  >
+                    Matches
+                  </button>
+                )}
               </div>
             ))}
           </div>

@@ -12,6 +12,7 @@ import GroupModal from './components/GroupModal'
 function App() {
   const [selectedStage, setSelectedStage] = useState('all')
   const [selectedGroup, setSelectedGroup] = useState('all')
+  const [selectedTeam, setSelectedTeam] = useState('all')
   const [selectedVenue, setSelectedVenue] = useState('all')
   const [selectedDate, setSelectedDate] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -92,6 +93,8 @@ function App() {
     return matches.filter(match => {
       const stageMatch = selectedStage === 'all' || match.stage === selectedStage
       const groupMatch = selectedGroup === 'all' || match.group === selectedGroup
+      const teamMatch = selectedTeam === 'all' || 
+        (match.description && match.description.includes(selectedTeam))
       const venueMatch = selectedVenue === 'all' || match.venue === selectedVenue
       const dateMatch = selectedDate === 'all' || match.date === selectedDate
       const searchMatch = searchQuery === '' || 
@@ -100,9 +103,9 @@ function App() {
         getVenue(match.venue).city.toLowerCase().includes(searchQuery.toLowerCase())
       const favoritesMatch = !showFavoritesOnly || favorites.includes(match.id)
       
-      return stageMatch && groupMatch && venueMatch && dateMatch && searchMatch && favoritesMatch
+      return stageMatch && groupMatch && teamMatch && venueMatch && dateMatch && searchMatch && favoritesMatch
     })
-  }, [selectedStage, selectedGroup, selectedVenue, selectedDate, searchQuery, showFavoritesOnly, favorites])
+  }, [selectedStage, selectedGroup, selectedTeam, selectedVenue, selectedDate, searchQuery, showFavoritesOnly, favorites])
 
   // Group matches by date
   const matchesByDate = useMemo(() => {
@@ -302,6 +305,13 @@ function App() {
           }}
           onFilterByGroup={(groupId) => {
             setSelectedGroup(groupId)
+            setSelectedTeam('all')
+            setShowGroups(false)
+            setSelectedMatch(null)
+          }}
+          onFilterByTeam={(teamName) => {
+            setSelectedTeam(teamName)
+            setSelectedGroup('all')
             setShowGroups(false)
             setSelectedMatch(null)
           }}
@@ -388,6 +398,13 @@ function App() {
           onClose={() => setSelectedGroupModal(null)}
           onFilterByGroup={(groupId) => {
             setSelectedGroup(groupId)
+            setSelectedTeam('all')
+            setShowGroups(false)
+            setSelectedGroupModal(null)
+          }}
+          onFilterByTeam={(teamName) => {
+            setSelectedTeam(teamName)
+            setSelectedGroup('all')
             setShowGroups(false)
             setSelectedGroupModal(null)
           }}

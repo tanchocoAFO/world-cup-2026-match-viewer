@@ -2,7 +2,7 @@ import { getVenue, getFeederMatches, getNextMatch, groups } from '../data/worldC
 import { useState } from 'react'
 import GroupModal from './GroupModal'
 
-const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGroup }) => {
+const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGroup, onFilterByTeam }) => {
   const [shareMessage, setShareMessage] = useState('')
   const [showCalendarOptions, setShowCalendarOptions] = useState(false)
   const [showShareOptions, setShowShareOptions] = useState(false)
@@ -611,6 +611,7 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGro
           groupId={selectedGroupId}
           onClose={() => setSelectedGroupId(null)}
           onFilterByGroup={onFilterByGroup}
+          onFilterByTeam={onFilterByTeam}
         />
       )}
     </div>
