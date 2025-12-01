@@ -55,6 +55,92 @@ Critical spacing calculations for visual alignment:
 
 **Reference:** See `.memex/context.md` for detailed spacing calculations.
 
+## Groups Feature
+
+### Groups Data Structure
+
+Groups stored in `src/data/worldCupData.js` with export:
+```javascript
+export const groups = {
+  A: {
+    id: 'A',
+    teams: [
+      { name: 'Mexico', pot: 1, flag: '🇲🇽', position: 1 },
+      { name: 'TBD', pot: 3, flag: '⚽', position: 2 },
+      { name: 'TBD', pot: 2, flag: '⚽', position: 3 },
+      { name: 'TBD', pot: 4, flag: '⚽', position: 4 }
+    ]
+  },
+  // ... groups B-L
+}
+```
+
+**Important:**
+- Position order follows FIFA draw allocation (NOT pot order)
+- Example: Group A is Pot 1, 3, 2, 4 (in that position order)
+- Host nations pre-assigned: Mexico (Group A), Canada (Group B), USA (Group D)
+- All other teams are "TBD" until December 5, 2025 draw
+- After draw, update team names and flags - features will automatically work
+
+### GroupsView Component
+
+Collapsible groups display (`src/components/GroupsView.jsx`):
+- Toggle via "Show Groups" button in FilterBar (dark blue when not selected)
+- Grid layout: 2 cols mobile, 3 small, 4 medium, 6 large screens
+- Each group card is clickable → opens GroupModal
+- Clean, compact design matching app aesthetic
+- No team count badges
+
+### GroupModal Component
+
+Detailed group view (`src/components/GroupModal.jsx`):
+- Opens on top of other modals (z-index 60)
+- Shows group letter, all 4 teams with positions
+- Team info: flag, name, pot number
+- Group stage info: 6 matches, top 2 advance, 3rd place maybe
+- **"Matches" button per team** (except TBD) - filters to that team's matches
+- **"View Group X Matches" button** at bottom - filters to all group matches
+- Can be opened from:
+  - GroupsView (clicking group card)
+  - MatchModal (clicking group badges in match details)
+  - MatchModal (clicking group letters in R32 descriptions)
+
+### Group References in Match Modals
+
+**Group Stage Matches:**
+- Blue "Group X" badge appears next to stage name
+- Clickable → opens GroupModal
+
+**Round of 32 Matches:**
+- Descriptions cleaned up: "1st place" not "winners", "2nd place" not "runners-up"
+- Third place: "Best 3rd of Groups X/Y/Z"
+- All group letters in descriptions are clickable blue buttons → open GroupModal
+- Example: "Group A 1st place vs Group B 2nd place" - both A and B are clickable
+
+### Filtering System
+
+**Filter Bar Layout (7 columns):**
+1. Search
+2. Stage
+3. **Group** (dropdown: All Groups, A-L)
+4. Venue
+5. Date
+6. Favorites
+7. Show Groups toggle
+
+**Filter Logic:**
+- Group filter: Shows only matches from selected group
+- Team filter: Shows only matches mentioning team name in description
+- Filters interact intelligently:
+  - Selecting group filter resets team filter
+  - Selecting team filter resets group filter
+- All filters saved in state, work with existing filter system
+
+**Filter Behaviors:**
+- Clicking "View Group X Matches" → sets group filter, collapses groups view, closes modals
+- Clicking team "Matches" button → sets team filter, collapses groups view, closes modals
+- Reset filters button clears all including group and team filters
+
 ## Asset Management
 
 ### Public Assets (Runtime)
@@ -78,45 +164,75 @@ Source images in `/data/` folder are NOT accessible at runtime:
 ### Bracket Display
 - Desktop: Visual bracket layout with horizontal progression
 - Mobile: Stacked by round (R32, R16, QF, SF, Final)
-- Toggle via `lg:block` and `lg:hidden` classes
+- Use `hidden lg:block` for desktop bracket, separate mobile view
 
-## Social Media & SEO
+### Filter Bar
+- Mobile: Collapsible with toggle button
+- Desktop: Always visible, 7-column grid
+- Indicators for active filters
 
-### Meta Tags (index.html)
-- Title: "FIFA World Cup 2026 Match Calendar"
-- Description: "Complete match schedule for FIFA World Cup 2026. Track all 104 matches across USA, Canada & Mexico."
-- Open Graph tags for Facebook/LinkedIn
-- Twitter Card tags with `summary_large_image`
-- Social preview image: 1200x630px recommended
+## Component Interaction Patterns
 
-### Favicon
-- Soccer ball emoji (⚽) as SVG favicon
-- Path: `/public/favicon.svg`
+### Modal Stacking
+- MatchModal: z-50
+- GroupModal: z-60 (can open on top of MatchModal)
+- Modals use bg-black with opacity for overlay
+- Click outside to close, X button in corner
 
-### Memex Branding
-- "Built with Memex" button with logo
-- UTM tracking: `utm_source=built_with_memex`
-- Component available in `/built-with-memex-component/` for reuse
+### State Management
+- Local state for UI interactions (modals, filters)
+- localStorage for favorites persistence
+- URL parameters for match sharing (`?match=123`)
+- Filter state lifted to App.jsx for cross-component access
 
-## Analytics
+### Prop Drilling Pattern
+Key callbacks passed through components:
+- `onGroupClick` - Opens GroupModal (deprecated, now using direct state)
+- `onFilterByGroup` - Sets group filter
+- `onFilterByTeam` - Sets team filter  
+- `onMatchSelect` - Opens MatchModal
+- `onClose` - Closes modals
 
-### Vercel Analytics
-- Package: `@vercel/analytics`
-- Import: `import { Analytics } from '@vercel/analytics/react'`
-- Usage: Add `<Analytics />` component at end of App.jsx
-- Auto-tracks page views when deployed to Vercel
+## Match Data Structure
 
-## Group Stage Match Structure
+### Group Stage Matches
+```javascript
+{
+  id: 1,
+  matchNumber: 1,
+  date: '2026-06-11',
+  time: 'TBD',
+  venue: 'mex',
+  stage: stages.GROUP,
+  group: 'A',
+  description: 'Mexico vs TBD (Opening Match)'
+}
+```
 
-### Position/Pot System
-Groups have position assignments (e.g., GA: 1, 3, 2, 4 means Position 1=Pot 1, Position 2=Pot 3, etc.)
+### Round of 32 Matches
+```javascript
+{
+  id: 73,
+  matchNumber: 73,
+  date: '2026-06-28',
+  venue: 'la',
+  stage: stages.R32,
+  description: 'Group A 2nd place vs Group B 2nd place'
+}
+```
 
-**IMPORTANT:** Match numbering within matchdays does NOT follow a consistent pattern. Don't assume higher-numbered matches always have Pot 1 teams.
+**Description Format Rules:**
+- Use "1st place" not "winners"
+- Use "2nd place" not "runners-up"
+- Use "Best 3rd of Groups X/Y/Z" not "third place"
+- Group letters must be capital for clickable parsing
 
-### Known Host Teams
-- Group A: Mexico (Pot 1)
-- Group B: Canada (Pot 1)
-- Group D: USA (Pot 1)
+## Known Host Teams
+
+Pre-assigned (Pot 1):
+- Mexico → Group A
+- Canada → Group B
+- USA → Group D
 
 ## Development Server Configuration
 
@@ -217,3 +333,8 @@ Requirements:
 - Confirm `host: '0.0.0.0'` in vite.config.js
 - Check `allowedHosts` includes domain pattern
 - Try different port (3000-3005 range)
+
+### Group Filter Not Working After Draw
+- Verify team names in `groups` object match exactly with match descriptions
+- Team filter checks for substring match in `match.description`
+- Update both groups data and match descriptions consistently

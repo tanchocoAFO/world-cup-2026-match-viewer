@@ -18,20 +18,23 @@ const FilterBar = ({
   showGroups,
   setShowGroups,
   selectedGroup,
-  setSelectedGroup
+  setSelectedGroup,
+  selectedTeam,
+  setSelectedTeam
 }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   
   const resetFilters = () => {
     setSelectedStage('all')
     setSelectedGroup('all')
+    setSelectedTeam('all')
     setSelectedVenue('all')
     setSelectedDate('all')
     setSearchQuery('')
     setShowFavoritesOnly(false)
   }
 
-  const hasActiveFilters = selectedStage !== 'all' || selectedGroup !== 'all' || selectedVenue !== 'all' || selectedDate !== 'all' || searchQuery !== '' || showFavoritesOnly
+  const hasActiveFilters = selectedStage !== 'all' || selectedGroup !== 'all' || selectedTeam !== 'all' || selectedVenue !== 'all' || selectedDate !== 'all' || searchQuery !== '' || showFavoritesOnly
 
   return (
     <div className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-20">
@@ -64,7 +67,7 @@ const FilterBar = ({
 
         {/* Filters Container - Hidden on mobile unless expanded, always visible on desktop */}
         <div className={`${isExpanded ? 'block' : 'hidden'} lg:block mt-4 lg:mt-0`}>
-          <div className="grid grid-cols-1 lg:grid-cols-7 gap-3 lg:gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-8 gap-3 lg:gap-4">
           {/* Search */}
           <div className="flex items-center gap-3 lg:block">
             <label className="text-xs font-medium text-slate-600 uppercase tracking-wider lg:block lg:mb-2 whitespace-nowrap">
@@ -113,6 +116,23 @@ const FilterBar = ({
                   Group {group}
                 </option>
               ))}
+            </select>
+          </div>
+
+          {/* Team Filter */}
+          <div className="flex items-center gap-3 lg:block">
+            <label className="text-xs font-medium text-slate-600 uppercase tracking-wider lg:block lg:mb-2 whitespace-nowrap">
+              Team
+            </label>
+            <select
+              value={selectedTeam}
+              onChange={(e) => setSelectedTeam(e.target.value)}
+              className="flex-1 lg:w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none bg-white transition-all text-sm"
+            >
+              <option value="all">All Teams</option>
+              <option value="Mexico">Mexico</option>
+              <option value="Canada">Canada</option>
+              <option value="USA">USA</option>
             </select>
           </div>
 

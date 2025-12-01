@@ -206,6 +206,8 @@ function App() {
         setSelectedStage={setSelectedStage}
         selectedGroup={selectedGroup}
         setSelectedGroup={setSelectedGroup}
+        selectedTeam={selectedTeam}
+        setSelectedTeam={setSelectedTeam}
         selectedVenue={selectedVenue}
         setSelectedVenue={setSelectedVenue}
         selectedDate={selectedDate}
