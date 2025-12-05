@@ -130,8 +130,17 @@ const FilterBar = ({
               className="flex-1 lg:w-full px-3 py-2.5 border border-slate-300 focus:ring-1 focus:ring-amber-500 focus:border-amber-500 outline-none bg-white transition-all text-sm"
             >
               <option value="all">All Teams</option>
-              <option value="Mexico">Mexico</option>
+              <option value="Australia">Australia</option>
               <option value="Canada">Canada</option>
+              <option value="Euro. Playoff A">Euro. Playoff A</option>
+              <option value="Euro. Playoff C">Euro. Playoff C</option>
+              <option value="Euro. Playoff D">Euro. Playoff D</option>
+              <option value="Mexico">Mexico</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Qatar">Qatar</option>
+              <option value="South Africa">South Africa</option>
+              <option value="South Korea">South Korea</option>
+              <option value="Switzerland">Switzerland</option>
               <option value="USA">USA</option>
             </select>
           </div>

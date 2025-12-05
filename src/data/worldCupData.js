@@ -31,129 +31,129 @@ export const stages = {
   FINAL: 'Final'
 };
 
-// Groups structure - teams will be assigned after the draw on Dec 5, 2025
+// Groups structure - Updated after draw on Dec 5, 2025
 // Position order follows FIFA's draw allocation (not pot order)
 export const groups = {
   A: {
     id: 'A',
     teams: [
       { name: 'Mexico', pot: 1, flag: '🇲🇽', position: 1 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 4 }
+      { name: 'South Africa', pot: 3, flag: '🇿🇦', position: 2 },
+      { name: 'South Korea', pot: 2, flag: '🇰🇷', position: 3 },
+      { name: 'Euro. Playoff D (CZE/DEN/MKD/IRL)', pot: 4, flag: '⚽', position: 4 }
     ]
   },
   B: {
     id: 'B',
     teams: [
       { name: 'Canada', pot: 1, flag: '🇨🇦', position: 1 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 4 }
+      { name: 'Euro. Playoff A (BIH/ITA/NIR/WAL)', pot: 4, flag: '⚽', position: 2 },
+      { name: 'Qatar', pot: 3, flag: '🇶🇦', position: 3 },
+      { name: 'Switzerland', pot: 2, flag: '🇨🇭', position: 4 }
     ]
   },
   C: {
     id: 'C',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 4 }
+      { name: 'Brazil', pot: 1, flag: '🇧🇷', position: 1 },
+      { name: 'Morocco', pot: 2, flag: '🇲🇦', position: 2 },
+      { name: 'Haiti', pot: 4, flag: '🇭🇹', position: 3 },
+      { name: 'Scotland', pot: 3, flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', position: 4 }
     ]
   },
   D: {
     id: 'D',
     teams: [
       { name: 'USA', pot: 1, flag: '🇺🇸', position: 1 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 4 }
+      { name: 'Paraguay', pot: 3, flag: '🇵🇾', position: 2 },
+      { name: 'Australia', pot: 2, flag: '🇦🇺', position: 3 },
+      { name: 'Euro. Playoff C (KOS/ROU/SVK/TUR)', pot: 4, flag: '⚽', position: 4 }
     ]
   },
   E: {
     id: 'E',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 4 }
+      { name: 'Germany', pot: 1, flag: '🇩🇪', position: 1 },
+      { name: 'Curacao', pot: 4, flag: '🇨🇼', position: 2 },
+      { name: 'Ivory Coast', pot: 3, flag: '🇨🇮', position: 3 },
+      { name: 'Ecuador', pot: 2, flag: '🇪🇨', position: 4 }
     ]
   },
   F: {
     id: 'F',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 4 }
+      { name: 'Netherlands', pot: 1, flag: '🇳🇱', position: 1 },
+      { name: 'Japan', pot: 2, flag: '🇯🇵', position: 2 },
+      { name: 'Euro. Playoff B (ALB/POL/SWE/UKR)', pot: 4, flag: '⚽', position: 3 },
+      { name: 'Tunisia', pot: 3, flag: '🇹🇳', position: 4 }
     ]
   },
   G: {
     id: 'G',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 4 }
+      { name: 'Belgium', pot: 1, flag: '🇧🇪', position: 1 },
+      { name: 'Egypt', pot: 3, flag: '🇪🇬', position: 2 },
+      { name: 'Iran', pot: 2, flag: '🇮🇷', position: 3 },
+      { name: 'New Zealand', pot: 4, flag: '🇳🇿', position: 4 }
     ]
   },
   H: {
     id: 'H',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 4 }
+      { name: 'Spain', pot: 1, flag: '🇪🇸', position: 1 },
+      { name: 'Cape Verde', pot: 4, flag: '🇨🇻', position: 2 },
+      { name: 'Saudi Arabia', pot: 3, flag: '🇸🇦', position: 3 },
+      { name: 'Uruguay', pot: 2, flag: '🇺🇾', position: 4 }
     ]
   },
   I: {
     id: 'I',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 4 }
+      { name: 'France', pot: 1, flag: '🇫🇷', position: 1 },
+      { name: 'Senegal', pot: 2, flag: '🇸🇳', position: 2 },
+      { name: 'FIFA Playoff 2 (BOL/IRQ/SUR)', pot: 4, flag: '⚽', position: 3 },
+      { name: 'Norway', pot: 3, flag: '🇳🇴', position: 4 }
     ]
   },
   J: {
     id: 'J',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 4 }
+      { name: 'Argentina', pot: 1, flag: '🇦🇷', position: 1 },
+      { name: 'Algeria', pot: 3, flag: '🇩🇿', position: 2 },
+      { name: 'Austria', pot: 2, flag: '🇦🇹', position: 3 },
+      { name: 'Jordan', pot: 4, flag: '🇯🇴', position: 4 }
     ]
   },
   K: {
     id: 'K',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 4 }
+      { name: 'Portugal', pot: 1, flag: '🇵🇹', position: 1 },
+      { name: 'FIFA Playoff 1 (COD/JAM/NCL)', pot: 4, flag: '⚽', position: 2 },
+      { name: 'Uzbekistan', pot: 3, flag: '🇺🇿', position: 3 },
+      { name: 'Colombia', pot: 2, flag: '🇨🇴', position: 4 }
     ]
   },
   L: {
     id: 'L',
     teams: [
-      { name: 'TBD', pot: 1, flag: '⚽', position: 1 },
-      { name: 'TBD', pot: 2, flag: '⚽', position: 2 },
-      { name: 'TBD', pot: 4, flag: '⚽', position: 3 },
-      { name: 'TBD', pot: 3, flag: '⚽', position: 4 }
+      { name: 'England', pot: 1, flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', position: 1 },
+      { name: 'Croatia', pot: 2, flag: '🇭🇷', position: 2 },
+      { name: 'Ghana', pot: 4, flag: '🇬🇭', position: 3 },
+      { name: 'Panama', pot: 3, flag: '🇵🇦', position: 4 }
     ]
   }
 };
 
 // Complete match schedule (104 total matches)
 export const matches = [
-  { id: 1, matchNumber: 1, date: '2026-06-11', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs TBD (Opening Match)' },
-  { id: 2, matchNumber: 2, date: '2026-06-11', time: 'TBD', venue: 'gdl', stage: stages.GROUP, group: 'A' },
-  { id: 3, matchNumber: 3, date: '2026-06-12', time: 'TBD', venue: 'tor', stage: stages.GROUP, group: 'B', description: 'Canada vs TBD' },
-  { id: 4, matchNumber: 4, date: '2026-06-12', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'D', description: 'USA vs TBD' },
+  { id: 1, matchNumber: 1, date: '2026-06-11', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs South Africa (Opening Match)' },
+  { id: 2, matchNumber: 2, date: '2026-06-11', time: 'TBD', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'South Korea vs Euro. Playoff D (CZE/DEN/MKD/IRL)' },
+  { id: 3, matchNumber: 3, date: '2026-06-12', time: 'TBD', venue: 'tor', stage: stages.GROUP, group: 'B', description: 'Canada vs Euro. Playoff A (BIH/ITA/NIR/WAL)' },
+  { id: 4, matchNumber: 4, date: '2026-06-12', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'D', description: 'USA vs Paraguay' },
   { id: 5, matchNumber: 5, date: '2026-06-13', time: 'TBD', venue: 'bos', stage: stages.GROUP, group: 'C' },
-  { id: 6, matchNumber: 6, date: '2026-06-13', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'D' },
+  { id: 6, matchNumber: 6, date: '2026-06-13', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'D', description: 'Australia vs Euro. Playoff C (KOS/ROU/SVK/TUR)' },
   { id: 7, matchNumber: 7, date: '2026-06-13', time: 'TBD', venue: 'nyj', stage: stages.GROUP, group: 'C' },
-  { id: 8, matchNumber: 8, date: '2026-06-13', time: 'TBD', venue: 'sf', stage: stages.GROUP, group: 'B' },
+  { id: 8, matchNumber: 8, date: '2026-06-13', time: 'TBD', venue: 'sf', stage: stages.GROUP, group: 'B', description: 'Qatar vs Switzerland' },
   { id: 9, matchNumber: 9, date: '2026-06-14', time: 'TBD', venue: 'phi', stage: stages.GROUP, group: 'E' },
   { id: 10, matchNumber: 10, date: '2026-06-14', time: 'TBD', venue: 'hou', stage: stages.GROUP, group: 'E' },
   { id: 11, matchNumber: 11, date: '2026-06-14', time: 'TBD', venue: 'dal', stage: stages.GROUP, group: 'F' },
@@ -170,14 +170,14 @@ export const matches = [
   { id: 22, matchNumber: 22, date: '2026-06-17', time: 'TBD', venue: 'dal', stage: stages.GROUP, group: 'L' },
   { id: 23, matchNumber: 23, date: '2026-06-17', time: 'TBD', venue: 'hou', stage: stages.GROUP, group: 'K' },
   { id: 24, matchNumber: 24, date: '2026-06-17', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'K' },
-  { id: 25, matchNumber: 25, date: '2026-06-18', time: 'TBD', venue: 'atl', stage: stages.GROUP, group: 'A' },
-  { id: 26, matchNumber: 26, date: '2026-06-18', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'B' },
-  { id: 27, matchNumber: 27, date: '2026-06-18', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'B', description: 'Canada vs TBD' },
-  { id: 28, matchNumber: 28, date: '2026-06-18', time: 'TBD', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'Mexico vs TBD' },
+  { id: 25, matchNumber: 25, date: '2026-06-18', time: 'TBD', venue: 'atl', stage: stages.GROUP, group: 'A', description: 'South Africa vs Euro. Playoff D (CZE/DEN/MKD/IRL)' },
+  { id: 26, matchNumber: 26, date: '2026-06-18', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'B', description: 'Euro. Playoff A (BIH/ITA/NIR/WAL) vs Switzerland' },
+  { id: 27, matchNumber: 27, date: '2026-06-18', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'B', description: 'Canada vs Qatar' },
+  { id: 28, matchNumber: 28, date: '2026-06-18', time: 'TBD', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'Mexico vs South Korea' },
   { id: 29, matchNumber: 29, date: '2026-06-19', time: 'TBD', venue: 'phi', stage: stages.GROUP, group: 'C' },
   { id: 30, matchNumber: 30, date: '2026-06-19', time: 'TBD', venue: 'bos', stage: stages.GROUP, group: 'C' },
-  { id: 31, matchNumber: 31, date: '2026-06-19', time: 'TBD', venue: 'sf', stage: stages.GROUP, group: 'D' },
-  { id: 32, matchNumber: 32, date: '2026-06-19', time: 'TBD', venue: 'sea', stage: stages.GROUP, group: 'D', description: 'USA vs TBD' },
+  { id: 31, matchNumber: 31, date: '2026-06-19', time: 'TBD', venue: 'sf', stage: stages.GROUP, group: 'D', description: 'Paraguay vs Euro. Playoff C (KOS/ROU/SVK/TUR)' },
+  { id: 32, matchNumber: 32, date: '2026-06-19', time: 'TBD', venue: 'sea', stage: stages.GROUP, group: 'D', description: 'USA vs Australia' },
   { id: 33, matchNumber: 33, date: '2026-06-20', time: 'TBD', venue: 'tor', stage: stages.GROUP, group: 'E' },
   { id: 34, matchNumber: 34, date: '2026-06-20', time: 'TBD', venue: 'kc', stage: stages.GROUP, group: 'E' },
   { id: 35, matchNumber: 35, date: '2026-06-20', time: 'TBD', venue: 'hou', stage: stages.GROUP, group: 'F' },
@@ -196,16 +196,16 @@ export const matches = [
   { id: 48, matchNumber: 48, date: '2026-06-23', time: 'TBD', venue: 'gdl', stage: stages.GROUP, group: 'K' },
   { id: 49, matchNumber: 49, date: '2026-06-24', time: 'TBD', venue: 'mia', stage: stages.GROUP, group: 'C' },
   { id: 50, matchNumber: 50, date: '2026-06-24', time: 'TBD', venue: 'atl', stage: stages.GROUP, group: 'C' },
-  { id: 51, matchNumber: 51, date: '2026-06-24', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'B', description: 'Canada vs TBD' },
-  { id: 52, matchNumber: 52, date: '2026-06-24', time: 'TBD', venue: 'sea', stage: stages.GROUP, group: 'B' },
-  { id: 53, matchNumber: 53, date: '2026-06-24', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs TBD' },
-  { id: 54, matchNumber: 54, date: '2026-06-24', time: 'TBD', venue: 'mty', stage: stages.GROUP, group: 'A' },
+  { id: 51, matchNumber: 51, date: '2026-06-24', time: 'TBD', venue: 'van', stage: stages.GROUP, group: 'B', description: 'Canada vs Switzerland' },
+  { id: 52, matchNumber: 52, date: '2026-06-24', time: 'TBD', venue: 'sea', stage: stages.GROUP, group: 'B', description: 'Euro. Playoff A (BIH/ITA/NIR/WAL) vs Qatar' },
+  { id: 53, matchNumber: 53, date: '2026-06-24', time: 'TBD', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs Euro. Playoff D (CZE/DEN/MKD/IRL)' },
+  { id: 54, matchNumber: 54, date: '2026-06-24', time: 'TBD', venue: 'mty', stage: stages.GROUP, group: 'A', description: 'South Africa vs South Korea' },
   { id: 55, matchNumber: 55, date: '2026-06-25', time: 'TBD', venue: 'phi', stage: stages.GROUP, group: 'E' },
   { id: 56, matchNumber: 56, date: '2026-06-25', time: 'TBD', venue: 'nyj', stage: stages.GROUP, group: 'E' },
   { id: 57, matchNumber: 57, date: '2026-06-25', time: 'TBD', venue: 'dal', stage: stages.GROUP, group: 'F' },
   { id: 58, matchNumber: 58, date: '2026-06-25', time: 'TBD', venue: 'kc', stage: stages.GROUP, group: 'F' },
-  { id: 59, matchNumber: 59, date: '2026-06-25', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'D', description: 'USA vs TBD' },
-  { id: 60, matchNumber: 60, date: '2026-06-25', time: 'TBD', venue: 'sf', stage: stages.GROUP, group: 'D' },
+  { id: 59, matchNumber: 59, date: '2026-06-25', time: 'TBD', venue: 'la', stage: stages.GROUP, group: 'D', description: 'USA vs Euro. Playoff C (KOS/ROU/SVK/TUR)' },
+  { id: 60, matchNumber: 60, date: '2026-06-25', time: 'TBD', venue: 'sf', stage: stages.GROUP, group: 'D', description: 'Paraguay vs Australia' },
   { id: 61, matchNumber: 61, date: '2026-06-26', time: 'TBD', venue: 'bos', stage: stages.GROUP, group: 'I' },
   { id: 62, matchNumber: 62, date: '2026-06-26', time: 'TBD', venue: 'tor', stage: stages.GROUP, group: 'I' },
   { id: 63, matchNumber: 63, date: '2026-06-26', time: 'TBD', venue: 'sea', stage: stages.GROUP, group: 'G' },
