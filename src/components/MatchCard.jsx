@@ -62,12 +62,12 @@ const MatchCard = ({ match, onClick, isFavorite, onToggleFavorite }) => {
       {/* Match Info */}
       <div className="p-5">
         {/* Match Number and Teams */}
-        <div className="mb-4 flex items-center justify-between">
-          <div className="text-2xl font-light text-slate-900">
-            #{match.matchNumber}
-          </div>
-          <div className="text-slate-600 text-xs font-light">
+        <div className="mb-4">
+          <div className="text-lg font-normal text-slate-900 mb-2 leading-snug">
             {match.description || 'TBD vs TBD'}
+          </div>
+          <div className="text-xs font-light text-slate-500">
+            Match #{match.matchNumber}
           </div>
         </div>
 
