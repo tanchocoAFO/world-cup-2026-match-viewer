@@ -184,7 +184,7 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGro
     let dates
     if (match.time && match.time !== 'TBD') {
       const [hours, minutes] = match.time.split(':')
-      const startDate = new Date(`${match.date}T${hours}:${minutes}:00-05:00`) // ET timezone
+      const startDate = new Date(`${match.date}T${hours}:${minutes}:00-04:00`) // EDT timezone (summer)
       const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000) // +2 hours
       
       const formatGCalDate = (date) => {
@@ -221,7 +221,7 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGro
     let dtstart, dtend
     if (match.time && match.time !== 'TBD') {
       const [hours, minutes] = match.time.split(':')
-      const startDate = new Date(`${match.date}T${hours}:${minutes}:00-05:00`) // ET timezone
+      const startDate = new Date(`${match.date}T${hours}:${minutes}:00-04:00`) // EDT timezone (summer)
       const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000) // +2 hours
       dtstart = `DTSTART:${formatICSDate(startDate)}`
       dtend = `DTEND:${formatICSDate(endDate)}`
