@@ -22,6 +22,16 @@ const MatchCard = ({ match, onClick, isFavorite, onToggleFavorite }) => {
     return flags[country] || '⚽'
   }
 
+  // Format time from 24-hour to 12-hour with AM/PM
+  const formatTime = (time) => {
+    if (!time || time === 'TBD') return 'TBD'
+    const [hours, minutes] = time.split(':')
+    const hour = parseInt(hours)
+    const ampm = hour >= 12 ? 'PM' : 'AM'
+    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour
+    return `${displayHour}:${minutes} ${ampm} ET`
+  }
+
   const stageStyle = getStageStyle(match.stage)
 
   const handleFavoriteClick = (e) => {
@@ -66,8 +76,10 @@ const MatchCard = ({ match, onClick, isFavorite, onToggleFavorite }) => {
           <div className="text-lg font-normal text-slate-900 mb-2 leading-snug">
             {match.description || 'TBD vs TBD'}
           </div>
-          <div className="text-xs font-light text-slate-500">
-            Match #{match.matchNumber}
+          <div className="flex items-center gap-2 text-xs font-light text-slate-500">
+            <span>{formatTime(match.time)}</span>
+            <span>•</span>
+            <span>Match #{match.matchNumber}</span>
           </div>
         </div>
 
