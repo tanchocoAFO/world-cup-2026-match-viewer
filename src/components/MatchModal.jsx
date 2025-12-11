@@ -164,24 +164,49 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGro
     })
   }
 
+  // Format time from 24-hour to 12-hour with AM/PM
+  const formatTime = (time) => {
+    if (!time || time === 'TBD') return 'TBD'
+    const [hours, minutes] = time.split(':')
+    const hour = parseInt(hours)
+    const ampm = hour >= 12 ? 'PM' : 'AM'
+    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour
+    return `${displayHour}:${minutes} ${ampm} ET`
+  }
+
   // Add to Calendar - Google Calendar URL
   const getGoogleCalendarUrl = () => {
-    // Use all-day event format since time is TBD
-    const dateOnly = match.date.replace(/-/g, '')
-    const nextDay = new Date(match.date)
-    nextDay.setDate(nextDay.getDate() + 1)
-    const nextDayFormatted = nextDay.toISOString().split('T')[0].replace(/-/g, '')
-    
     const title = `FIFA World Cup 2026 - Match ${match.matchNumber}${match.description ? ': ' + match.description : ''}`
-    const details = `${match.stage}${match.group ? ' - Group ' + match.group : ''}\nKickoff Time: TBD\nVenue: ${venue.name}\nCity: ${venue.city}, ${venue.country}\n\nBuilt with Memex`
+    const details = `${match.stage}${match.group ? ' - Group ' + match.group : ''}\nKickoff Time: ${formatTime(match.time)}\nVenue: ${venue.name}\nCity: ${venue.city}, ${venue.country}\n\nBuilt with Memex`
     const location = `${venue.name}, ${venue.city}, ${venue.country}`
+    
+    // Parse time and create proper datetime
+    let dates
+    if (match.time && match.time !== 'TBD') {
+      const [hours, minutes] = match.time.split(':')
+      const startDate = new Date(`${match.date}T${hours}:${minutes}:00-05:00`) // ET timezone
+      const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000) // +2 hours
+      
+      const formatGCalDate = (date) => {
+        return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+      }
+      
+      dates = `${formatGCalDate(startDate)}/${formatGCalDate(endDate)}`
+    } else {
+      // Fallback to all-day event if time is TBD
+      const dateOnly = match.date.replace(/-/g, '')
+      const nextDay = new Date(match.date)
+      nextDay.setDate(nextDay.getDate() + 1)
+      const nextDayFormatted = nextDay.toISOString().split('T')[0].replace(/-/g, '')
+      dates = `${dateOnly}/${nextDayFormatted}`
+    }
     
     const params = new URLSearchParams({
       action: 'TEMPLATE',
       text: title,
       details: details,
       location: location,
-      dates: `${dateOnly}/${nextDayFormatted}`
+      dates: dates
     })
     
     return `https://calendar.google.com/calendar/render?${params.toString()}`
@@ -189,14 +214,25 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGro
 
   // Download .ics file (fallback)
   const downloadIcsFile = () => {
-    // Use all-day event format since time is TBD
-    const dateOnly = match.date.replace(/-/g, '')
-    const nextDay = new Date(match.date)
-    nextDay.setDate(nextDay.getDate() + 1)
-    const nextDayFormatted = nextDay.toISOString().split('T')[0].replace(/-/g, '')
-    
     const formatICSDate = (date) => {
       return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+    }
+    
+    let dtstart, dtend
+    if (match.time && match.time !== 'TBD') {
+      const [hours, minutes] = match.time.split(':')
+      const startDate = new Date(`${match.date}T${hours}:${minutes}:00-05:00`) // ET timezone
+      const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000) // +2 hours
+      dtstart = `DTSTART:${formatICSDate(startDate)}`
+      dtend = `DTEND:${formatICSDate(endDate)}`
+    } else {
+      // Fallback to all-day event if time is TBD
+      const dateOnly = match.date.replace(/-/g, '')
+      const nextDay = new Date(match.date)
+      nextDay.setDate(nextDay.getDate() + 1)
+      const nextDayFormatted = nextDay.toISOString().split('T')[0].replace(/-/g, '')
+      dtstart = `DTSTART;VALUE=DATE:${dateOnly}`
+      dtend = `DTEND;VALUE=DATE:${nextDayFormatted}`
     }
     
     const icsContent = [
@@ -206,10 +242,10 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGro
       'BEGIN:VEVENT',
       `UID:worldcup2026-match-${match.id}@worldcup2026.com`,
       `DTSTAMP:${formatICSDate(new Date())}`,
-      `DTSTART;VALUE=DATE:${dateOnly}`,
-      `DTEND;VALUE=DATE:${nextDayFormatted}`,
+      dtstart,
+      dtend,
       `SUMMARY:FIFA World Cup 2026 - Match ${match.matchNumber}${match.description ? ': ' + match.description : ''}`,
-      `DESCRIPTION:${match.stage}${match.group ? ' - Group ' + match.group : ''}\\nKickoff Time: TBD\\nVenue: ${venue.name}\\nCity: ${venue.city}, ${venue.country}\\n\\nBuilt with Memex`,
+      `DESCRIPTION:${match.stage}${match.group ? ' - Group ' + match.group : ''}\\nKickoff Time: ${formatTime(match.time)}\\nVenue: ${venue.name}\\nCity: ${venue.city}, ${venue.country}\\n\\nBuilt with Memex`,
       `LOCATION:${venue.name}, ${venue.city}, ${venue.country}`,
       'STATUS:CONFIRMED',
       'END:VEVENT',
@@ -250,7 +286,7 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGro
     const url = new URL(window.location)
     url.searchParams.set('match', match.id)
     const matchUrl = url.toString()
-    const shareText = `FIFA World Cup 2026 - Match ${match.matchNumber}\n${match.stage}${match.group ? ' - Group ' + match.group : ''}\n${formatDate(match.date)} (Time TBD)\n${venue.name}, ${venue.city}`
+    const shareText = `FIFA World Cup 2026 - Match ${match.matchNumber}\n${match.stage}${match.group ? ' - Group ' + match.group : ''}\n${formatDate(match.date)} • ${formatTime(match.time)}\n${venue.name}, ${venue.city}`
     
     try {
       if (navigator.share) {
@@ -329,7 +365,7 @@ const MatchModal = ({ match, onClose, onMatchSelect, onGroupClick, onFilterByGro
               <div className="md:text-right">
                 <div className="text-xs uppercase tracking-wider text-slate-500 mb-1">Date & Time</div>
                 <div className="text-sm font-medium text-slate-900 break-words">{formatDate(match.date)}</div>
-                <div className="text-sm text-slate-600">TBD</div>
+                <div className="text-sm text-slate-600">{formatTime(match.time)}</div>
               </div>
             </div>
             {/* Teams Display with Qualifier Info for R32 */}
