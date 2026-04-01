@@ -40,14 +40,14 @@ export const groups = {
       { name: 'Mexico', pot: 1, flag: '🇲🇽', position: 1 },
       { name: 'South Africa', pot: 3, flag: '🇿🇦', position: 2 },
       { name: 'South Korea', pot: 2, flag: '🇰🇷', position: 3 },
-      { name: 'Euro. Playoff D (CZE/DEN/MKD/IRL)', pot: 4, flag: '⚽', position: 4 }
+      { name: 'Czechia', pot: 4, flag: '🇨🇿', position: 4 }
     ]
   },
   B: {
     id: 'B',
     teams: [
       { name: 'Canada', pot: 1, flag: '🇨🇦', position: 1 },
-      { name: 'Euro. Playoff A (BIH/ITA/NIR/WAL)', pot: 4, flag: '⚽', position: 2 },
+      { name: 'Bosnia and Herzegovina', pot: 4, flag: '🇧🇦', position: 2 },
       { name: 'Qatar', pot: 3, flag: '🇶🇦', position: 3 },
       { name: 'Switzerland', pot: 2, flag: '🇨🇭', position: 4 }
     ]
@@ -67,7 +67,7 @@ export const groups = {
       { name: 'USA', pot: 1, flag: '🇺🇸', position: 1 },
       { name: 'Paraguay', pot: 3, flag: '🇵🇾', position: 2 },
       { name: 'Australia', pot: 2, flag: '🇦🇺', position: 3 },
-      { name: 'Euro. Playoff C (KOS/ROU/SVK/TUR)', pot: 4, flag: '⚽', position: 4 }
+      { name: 'Türkiye', pot: 4, flag: '🇹🇷', position: 4 }
     ]
   },
   E: {
@@ -84,7 +84,7 @@ export const groups = {
     teams: [
       { name: 'Netherlands', pot: 1, flag: '🇳🇱', position: 1 },
       { name: 'Japan', pot: 2, flag: '🇯🇵', position: 2 },
-      { name: 'Euro. Playoff B (ALB/POL/SWE/UKR)', pot: 4, flag: '⚽', position: 3 },
+      { name: 'Sweden', pot: 4, flag: '🇸🇪', position: 3 },
       { name: 'Tunisia', pot: 3, flag: '🇹🇳', position: 4 }
     ]
   },
@@ -128,7 +128,7 @@ export const groups = {
     id: 'K',
     teams: [
       { name: 'Portugal', pot: 1, flag: '🇵🇹', position: 1 },
-      { name: 'FIFA Playoff 1 (COD/JAM/NCL)', pot: 4, flag: '⚽', position: 2 },
+      { name: 'DR Congo', pot: 4, flag: '🇨🇩', position: 2 },
       { name: 'Uzbekistan', pot: 3, flag: '🇺🇿', position: 3 },
       { name: 'Colombia', pot: 2, flag: '🇨🇴', position: 4 }
     ]
@@ -147,17 +147,17 @@ export const groups = {
 // Complete match schedule (104 total matches)
 export const matches = [
   { id: 1, matchNumber: 1, date: '2026-06-11', time: '15:00', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs South Africa (Opening Match)' },
-  { id: 2, matchNumber: 2, date: '2026-06-11', time: '22:00', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'South Korea vs Euro. Playoff D (CZE/DEN/MKD/IRL)' },
-  { id: 3, matchNumber: 3, date: '2026-06-12', time: '15:00', venue: 'tor', stage: stages.GROUP, group: 'B', description: 'Canada vs Euro. Playoff A (BIH/ITA/NIR/WAL)' },
+  { id: 2, matchNumber: 2, date: '2026-06-11', time: '22:00', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'South Korea vs Czechia' },
+  { id: 3, matchNumber: 3, date: '2026-06-12', time: '15:00', venue: 'tor', stage: stages.GROUP, group: 'B', description: 'Canada vs Bosnia and Herzegovina' },
   { id: 4, matchNumber: 4, date: '2026-06-12', time: '21:00', venue: 'la', stage: stages.GROUP, group: 'D', description: 'USA vs Paraguay' },
   { id: 5, matchNumber: 5, date: '2026-06-13', time: '21:00', venue: 'bos', stage: stages.GROUP, group: 'C', description: 'Haiti vs Scotland' },
   { id: 6, matchNumber: 6, date: '2026-06-13', time: '00:00', venue: 'sf', stage: stages.GROUP, group: 'B', description: 'Qatar vs Switzerland' },
   { id: 7, matchNumber: 7, date: '2026-06-13', time: '18:00', venue: 'nyj', stage: stages.GROUP, group: 'C', description: 'Brazil vs Morocco' },
-  { id: 8, matchNumber: 8, date: '2026-06-14', time: '15:00', venue: 'van', stage: stages.GROUP, group: 'D', description: 'Australia vs Euro. Playoff C (KOS/ROU/SVK/TUR)' },
+  { id: 8, matchNumber: 8, date: '2026-06-14', time: '15:00', venue: 'van', stage: stages.GROUP, group: 'D', description: 'Australia vs Türkiye' },
   { id: 9, matchNumber: 9, date: '2026-06-14', time: '19:00', venue: 'phi', stage: stages.GROUP, group: 'E', description: 'Ivory Coast vs Ecuador' },
   { id: 10, matchNumber: 10, date: '2026-06-14', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'E', description: 'Germany vs Curacao' },
   { id: 11, matchNumber: 11, date: '2026-06-14', time: '16:00', venue: 'dal', stage: stages.GROUP, group: 'F', description: 'Netherlands vs Japan' },
-  { id: 12, matchNumber: 12, date: '2026-06-14', time: '22:00', venue: 'mty', stage: stages.GROUP, group: 'F', description: 'Euro. Playoff B (ALB/POL/SWE/UKR) vs Tunisia' },
+  { id: 12, matchNumber: 12, date: '2026-06-14', time: '22:00', venue: 'mty', stage: stages.GROUP, group: 'F', description: 'Sweden vs Tunisia' },
   { id: 13, matchNumber: 13, date: '2026-06-15', time: '18:00', venue: 'mia', stage: stages.GROUP, group: 'H', description: 'Saudi Arabia vs Uruguay' },
   { id: 14, matchNumber: 14, date: '2026-06-15', time: '12:00', venue: 'atl', stage: stages.GROUP, group: 'H', description: 'Spain vs Cabo Verde' },
   { id: 15, matchNumber: 15, date: '2026-06-15', time: '21:00', venue: 'la', stage: stages.GROUP, group: 'G', description: 'Iran vs New Zealand' },
@@ -168,19 +168,19 @@ export const matches = [
   { id: 20, matchNumber: 20, date: '2026-06-17', time: '00:00', venue: 'sf', stage: stages.GROUP, group: 'J', description: 'Austria vs Jordan' },
   { id: 21, matchNumber: 21, date: '2026-06-17', time: '19:00', venue: 'tor', stage: stages.GROUP, group: 'L', description: 'Ghana vs Panama' },
   { id: 22, matchNumber: 22, date: '2026-06-17', time: '16:00', venue: 'dal', stage: stages.GROUP, group: 'L', description: 'England vs Croatia' },
-  { id: 23, matchNumber: 23, date: '2026-06-17', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'K', description: 'Portugal vs FIFA Playoff 1 (COD/JAM/NCL)' },
+  { id: 23, matchNumber: 23, date: '2026-06-17', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'K', description: 'Portugal vs DR Congo' },
   { id: 24, matchNumber: 24, date: '2026-06-17', time: '22:00', venue: 'mex', stage: stages.GROUP, group: 'K', description: 'Uzbekistan vs Colombia' },
-  { id: 25, matchNumber: 25, date: '2026-06-18', time: '12:00', venue: 'atl', stage: stages.GROUP, group: 'A', description: 'Euro. Playoff D (CZE/DEN/MKD/IRL) vs South Africa' },
-  { id: 26, matchNumber: 26, date: '2026-06-18', time: '12:00', venue: 'la', stage: stages.GROUP, group: 'B', description: 'Switzerland vs Euro. Playoff A (BIH/ITA/NIR/WAL)' },
+  { id: 25, matchNumber: 25, date: '2026-06-18', time: '12:00', venue: 'atl', stage: stages.GROUP, group: 'A', description: 'Czechia vs South Africa' },
+  { id: 26, matchNumber: 26, date: '2026-06-18', time: '12:00', venue: 'la', stage: stages.GROUP, group: 'B', description: 'Switzerland vs Bosnia and Herzegovina' },
   { id: 27, matchNumber: 27, date: '2026-06-18', time: '18:00', venue: 'van', stage: stages.GROUP, group: 'B', description: 'Canada vs Qatar' },
   { id: 28, matchNumber: 28, date: '2026-06-18', time: '21:00', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'Mexico vs South Korea' },
   { id: 29, matchNumber: 29, date: '2026-06-19', time: '21:00', venue: 'phi', stage: stages.GROUP, group: 'C', description: 'Brazil vs Haiti' },
   { id: 30, matchNumber: 30, date: '2026-06-19', time: '18:00', venue: 'bos', stage: stages.GROUP, group: 'C', description: 'Scotland vs Morocco' },
-  { id: 31, matchNumber: 31, date: '2026-06-19', time: '00:00', venue: 'sf', stage: stages.GROUP, group: 'D', description: 'Euro. Playoff C (KOS/ROU/SVK/TUR) vs Paraguay' },
+  { id: 31, matchNumber: 31, date: '2026-06-19', time: '00:00', venue: 'sf', stage: stages.GROUP, group: 'D', description: 'Türkiye vs Paraguay' },
   { id: 32, matchNumber: 32, date: '2026-06-19', time: '15:00', venue: 'sea', stage: stages.GROUP, group: 'D', description: 'USA vs Australia' },
   { id: 33, matchNumber: 33, date: '2026-06-20', time: '16:00', venue: 'tor', stage: stages.GROUP, group: 'E', description: 'Germany vs Ivory Coast' },
   { id: 34, matchNumber: 34, date: '2026-06-20', time: '20:00', venue: 'kc', stage: stages.GROUP, group: 'E', description: 'Ecuador vs Curacao' },
-  { id: 35, matchNumber: 35, date: '2026-06-20', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'F', description: 'Netherlands vs Euro. Playoff B (ALB/POL/SWE/UKR)' },
+  { id: 35, matchNumber: 35, date: '2026-06-20', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'F', description: 'Netherlands vs Sweden' },
   { id: 36, matchNumber: 36, date: '2026-06-20', time: '00:00', venue: 'mty', stage: stages.GROUP, group: 'F', description: 'Tunisia vs Japan' },
   { id: 37, matchNumber: 37, date: '2026-06-21', time: '18:00', venue: 'mia', stage: stages.GROUP, group: 'H', description: 'Uruguay vs Cabo Verde' },
   { id: 38, matchNumber: 38, date: '2026-06-21', time: '12:00', venue: 'atl', stage: stages.GROUP, group: 'H', description: 'Spain vs Saudi Arabia' },
@@ -193,18 +193,18 @@ export const matches = [
   { id: 45, matchNumber: 45, date: '2026-06-23', time: '16:00', venue: 'bos', stage: stages.GROUP, group: 'L', description: 'England vs Ghana' },
   { id: 46, matchNumber: 46, date: '2026-06-23', time: '19:00', venue: 'tor', stage: stages.GROUP, group: 'L', description: 'Panama vs Croatia' },
   { id: 47, matchNumber: 47, date: '2026-06-23', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'K', description: 'Portugal vs Uzbekistan' },
-  { id: 48, matchNumber: 48, date: '2026-06-23', time: '22:00', venue: 'gdl', stage: stages.GROUP, group: 'K', description: 'Colombia vs FIFA Playoff 1 (COD/JAM/NCL)' },
+  { id: 48, matchNumber: 48, date: '2026-06-23', time: '22:00', venue: 'gdl', stage: stages.GROUP, group: 'K', description: 'Colombia vs DR Congo' },
   { id: 49, matchNumber: 49, date: '2026-06-24', time: '18:00', venue: 'mia', stage: stages.GROUP, group: 'C', description: 'Scotland vs Brazil' },
   { id: 50, matchNumber: 50, date: '2026-06-24', time: '15:00', venue: 'atl', stage: stages.GROUP, group: 'C', description: 'Morocco vs Haiti' },
   { id: 51, matchNumber: 51, date: '2026-06-24', time: '15:00', venue: 'van', stage: stages.GROUP, group: 'B', description: 'Switzerland vs Canada' },
-  { id: 52, matchNumber: 52, date: '2026-06-24', time: '15:00', venue: 'sea', stage: stages.GROUP, group: 'B', description: 'Euro. Playoff A (BIH/ITA/NIR/WAL) vs Qatar' },
-  { id: 53, matchNumber: 53, date: '2026-06-24', time: '21:00', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Euro. Playoff D (CZE/DEN/MKD/IRL) vs Mexico' },
+  { id: 52, matchNumber: 52, date: '2026-06-24', time: '15:00', venue: 'sea', stage: stages.GROUP, group: 'B', description: 'Bosnia and Herzegovina vs Qatar' },
+  { id: 53, matchNumber: 53, date: '2026-06-24', time: '21:00', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Czechia vs Mexico' },
   { id: 54, matchNumber: 54, date: '2026-06-24', time: '21:00', venue: 'mty', stage: stages.GROUP, group: 'A', description: 'South Africa vs South Korea' },
   { id: 55, matchNumber: 55, date: '2026-06-25', time: '16:00', venue: 'phi', stage: stages.GROUP, group: 'E', description: 'Curacao vs Ivory Coast' },
   { id: 56, matchNumber: 56, date: '2026-06-25', time: '16:00', venue: 'nyj', stage: stages.GROUP, group: 'E', description: 'Ecuador vs Germany' },
   { id: 57, matchNumber: 57, date: '2026-06-25', time: '19:00', venue: 'dal', stage: stages.GROUP, group: 'F', description: 'Tunisia vs Netherlands' },
-  { id: 58, matchNumber: 58, date: '2026-06-25', time: '19:00', venue: 'kc', stage: stages.GROUP, group: 'F', description: 'Japan vs Euro. Playoff B (ALB/POL/SWE/UKR)' },
-  { id: 59, matchNumber: 59, date: '2026-06-25', time: '22:00', venue: 'la', stage: stages.GROUP, group: 'D', description: 'Euro. Playoff C (KOS/ROU/SVK/TUR) vs USA' },
+  { id: 58, matchNumber: 58, date: '2026-06-25', time: '19:00', venue: 'kc', stage: stages.GROUP, group: 'F', description: 'Japan vs Sweden' },
+  { id: 59, matchNumber: 59, date: '2026-06-25', time: '22:00', venue: 'la', stage: stages.GROUP, group: 'D', description: 'Türkiye vs USA' },
   { id: 60, matchNumber: 60, date: '2026-06-25', time: '22:00', venue: 'sf', stage: stages.GROUP, group: 'D', description: 'Paraguay vs Australia' },
   { id: 61, matchNumber: 61, date: '2026-06-26', time: '15:00', venue: 'bos', stage: stages.GROUP, group: 'I', description: 'Norway vs France' },
   { id: 62, matchNumber: 62, date: '2026-06-26', time: '15:00', venue: 'tor', stage: stages.GROUP, group: 'I', description: 'Senegal vs FIFA Playoff 2 (BOL/IRQ/SUR)' },
@@ -217,7 +217,7 @@ export const matches = [
   { id: 69, matchNumber: 69, date: '2026-06-27', time: '22:00', venue: 'kc', stage: stages.GROUP, group: 'J', description: 'Algeria vs Austria' },
   { id: 70, matchNumber: 70, date: '2026-06-27', time: '22:00', venue: 'dal', stage: stages.GROUP, group: 'J', description: 'Jordan vs Argentina' },
   { id: 71, matchNumber: 71, date: '2026-06-27', time: '19:30', venue: 'mia', stage: stages.GROUP, group: 'K', description: 'Colombia vs Portugal' },
-  { id: 72, matchNumber: 72, date: '2026-06-27', time: '19:30', venue: 'atl', stage: stages.GROUP, group: 'K', description: 'FIFA Playoff 1 (COD/JAM/NCL) vs Uzbekistan' },
+  { id: 72, matchNumber: 72, date: '2026-06-27', time: '19:30', venue: 'atl', stage: stages.GROUP, group: 'K', description: 'DR Congo vs Uzbekistan' },
   { id: 73, matchNumber: 73, date: '2026-06-28', time: '15:00', venue: 'la', stage: stages.R32, description: 'Group A 2nd place vs Group B 2nd place' },
   { id: 74, matchNumber: 74, date: '2026-06-29', time: '16:30', venue: 'bos', stage: stages.R32, description: 'Group E 1st place vs Best 3rd of Groups A/B/C/D/F' },
   { id: 75, matchNumber: 75, date: '2026-06-29', time: '16:30', venue: 'mty', stage: stages.R32, description: 'Group F 1st place vs Group C 2nd place' },
