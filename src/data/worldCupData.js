@@ -111,7 +111,7 @@ export const groups = {
     teams: [
       { name: 'France', pot: 1, flag: '🇫🇷', position: 1 },
       { name: 'Senegal', pot: 2, flag: '🇸🇳', position: 2 },
-      { name: 'FIFA Playoff 2 (BOL/IRQ/SUR)', pot: 4, flag: '⚽', position: 3 },
+      { name: 'Iraq', pot: 4, flag: '🇮🇶', position: 3 },
       { name: 'Norway', pot: 3, flag: '🇳🇴', position: 4 }
     ]
   },
@@ -163,7 +163,7 @@ export const matches = [
   { id: 15, matchNumber: 15, date: '2026-06-15', time: '21:00', venue: 'la', stage: stages.GROUP, group: 'G', description: 'Iran vs New Zealand' },
   { id: 16, matchNumber: 16, date: '2026-06-15', time: '15:00', venue: 'sea', stage: stages.GROUP, group: 'G', description: 'Belgium vs Egypt' },
   { id: 17, matchNumber: 17, date: '2026-06-16', time: '15:00', venue: 'nyj', stage: stages.GROUP, group: 'I', description: 'France vs Senegal' },
-  { id: 18, matchNumber: 18, date: '2026-06-16', time: '15:00', venue: 'bos', stage: stages.GROUP, group: 'I', description: 'FIFA Playoff 2 (BOL/IRQ/SUR) vs Norway' },
+  { id: 18, matchNumber: 18, date: '2026-06-16', time: '15:00', venue: 'bos', stage: stages.GROUP, group: 'I', description: 'Iraq vs Norway' },
   { id: 19, matchNumber: 19, date: '2026-06-16', time: '21:00', venue: 'kc', stage: stages.GROUP, group: 'J', description: 'Argentina vs Algeria' },
   { id: 20, matchNumber: 20, date: '2026-06-17', time: '00:00', venue: 'sf', stage: stages.GROUP, group: 'J', description: 'Austria vs Jordan' },
   { id: 21, matchNumber: 21, date: '2026-06-17', time: '19:00', venue: 'tor', stage: stages.GROUP, group: 'L', description: 'Ghana vs Panama' },
@@ -187,7 +187,7 @@ export const matches = [
   { id: 39, matchNumber: 39, date: '2026-06-21', time: '15:00', venue: 'la', stage: stages.GROUP, group: 'G', description: 'Belgium vs Iran' },
   { id: 40, matchNumber: 40, date: '2026-06-21', time: '21:00', venue: 'van', stage: stages.GROUP, group: 'G', description: 'New Zealand vs Egypt' },
   { id: 41, matchNumber: 41, date: '2026-06-22', time: '20:00', venue: 'nyj', stage: stages.GROUP, group: 'I', description: 'Norway vs Senegal' },
-  { id: 42, matchNumber: 42, date: '2026-06-22', time: '17:00', venue: 'phi', stage: stages.GROUP, group: 'I', description: 'France vs FIFA Playoff 2 (BOL/IRQ/SUR)' },
+  { id: 42, matchNumber: 42, date: '2026-06-22', time: '17:00', venue: 'phi', stage: stages.GROUP, group: 'I', description: 'France vs Iraq' },
   { id: 43, matchNumber: 43, date: '2026-06-22', time: '13:00', venue: 'dal', stage: stages.GROUP, group: 'J', description: 'Argentina vs Austria' },
   { id: 44, matchNumber: 44, date: '2026-06-22', time: '23:00', venue: 'sf', stage: stages.GROUP, group: 'J', description: 'Jordan vs Algeria' },
   { id: 45, matchNumber: 45, date: '2026-06-23', time: '16:00', venue: 'bos', stage: stages.GROUP, group: 'L', description: 'England vs Ghana' },
@@ -207,7 +207,7 @@ export const matches = [
   { id: 59, matchNumber: 59, date: '2026-06-25', time: '22:00', venue: 'la', stage: stages.GROUP, group: 'D', description: 'Türkiye vs USA' },
   { id: 60, matchNumber: 60, date: '2026-06-25', time: '22:00', venue: 'sf', stage: stages.GROUP, group: 'D', description: 'Paraguay vs Australia' },
   { id: 61, matchNumber: 61, date: '2026-06-26', time: '15:00', venue: 'bos', stage: stages.GROUP, group: 'I', description: 'Norway vs France' },
-  { id: 62, matchNumber: 62, date: '2026-06-26', time: '15:00', venue: 'tor', stage: stages.GROUP, group: 'I', description: 'Senegal vs FIFA Playoff 2 (BOL/IRQ/SUR)' },
+  { id: 62, matchNumber: 62, date: '2026-06-26', time: '15:00', venue: 'tor', stage: stages.GROUP, group: 'I', description: 'Senegal vs Iraq' },
   { id: 63, matchNumber: 63, date: '2026-06-26', time: '23:00', venue: 'sea', stage: stages.GROUP, group: 'G', description: 'Egypt vs Iran' },
   { id: 64, matchNumber: 64, date: '2026-06-26', time: '23:00', venue: 'van', stage: stages.GROUP, group: 'G', description: 'New Zealand vs Belgium' },
   { id: 65, matchNumber: 65, date: '2026-06-26', time: '20:00', venue: 'hou', stage: stages.GROUP, group: 'H', description: 'Cabo Verde vs Saudi Arabia' },
