@@ -8,6 +8,9 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3000,
     strictPort: false,
-    allowedHosts: ['.app.memex.run']
+    allowedHosts: ['.app.memex.run'],
+    proxy: {
+      '/api': 'http://localhost:8000'
+    }
   }
 })

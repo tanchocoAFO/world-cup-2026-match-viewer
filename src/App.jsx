@@ -8,6 +8,7 @@ import Countdown from './components/Countdown'
 import KnockoutBracket from './components/KnockoutBracket'
 import GroupsView from './components/GroupsView'
 import GroupModal from './components/GroupModal'
+import ChatWidget from './components/ChatWidget'
 
 function App() {
   // Initialize filter state from URL params
@@ -350,6 +351,9 @@ function App() {
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        {/* AI Chat Widget */}
+        <ChatWidget />
+
         {/* Jump to Bracket/Calendar Button - Hidden on mobile since bracket is hidden */}
         {Object.keys(knockoutStageByDate).length > 0 && (
           <button
