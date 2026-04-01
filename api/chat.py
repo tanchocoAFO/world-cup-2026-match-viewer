@@ -1,30 +1,20 @@
-import keyring
+import json
 import os
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from google import genai
-from google.genai import types
+from http.server import BaseHTTPRequestHandler
 
-app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
-    allow_methods=["POST"],
-    allow_headers=["*"],
-)
+def get_secret(key):
+    """Try env var first (Vercel), fall back to keyring (local dev)."""
+    val = os.environ.get(key)
+    if not val:
+        try:
+            import keyring as kr
+            val = kr.get_password("memex", key)
+        except Exception:
+            pass
+    return val
 
-# --- Gemini client ---
-def get_client():
-    api_key = keyring.get_password("memex", "GEMINI_WORKSHOP_API_KEY") or os.environ.get("GEMINI_WORKSHOP_API_KEY")
-    base_url = keyring.get_password("memex", "GEMINI_WORKSHOP_BASE_URL") or os.environ.get("GEMINI_WORKSHOP_BASE_URL")
-    return genai.Client(
-        api_key=api_key,
-        http_options={"api_version": "v1alpha", "base_url": base_url},
-    )
 
-# --- World Cup context for the system prompt ---
 SYSTEM_PROMPT = """
 You are a helpful FIFA World Cup 2026 assistant embedded in a match schedule viewer.
 ONLY answer questions related to the 2026 FIFA World Cup — matches, teams, groups, venues, dates, times, or the tournament in general.
@@ -137,52 +127,71 @@ Match 69 | Jun 27 | 22:00 | Kansas City | Group J | Algeria vs Austria
 Match 70 | Jun 27 | 22:00 | Dallas | Group J | Jordan vs Argentina
 Match 71 | Jun 27 | 19:30 | Miami | Group K | Colombia vs Portugal
 Match 72 | Jun 27 | 19:30 | Atlanta | Group K | DR Congo vs Uzbekistan
-Match 73–104: Round of 32, Round of 16, Quarter-Finals, Semi-Finals, Third Place (Jul 14), Final (Jul 19, MetLife Stadium)
+Matches 73–104: Round of 32, Round of 16, Quarter-Finals, Semi-Finals, Third Place (Jul 14), Final (Jul 19 at MetLife Stadium, New York/NJ)
 
-When answering about match times, always mention ET (Eastern Time) as all times are in ET.
-Keep answers concise and friendly. Format match info clearly.
+When answering about match times, always mention ET (Eastern Time).
+Keep answers concise and friendly.
 """
 
-# --- Request/Response models ---
-class Message(BaseModel):
-    role: str  # "user" or "model"
-    content: str
 
-class ChatRequest(BaseModel):
-    message: str
-    history: list[Message] = []
+class handler(BaseHTTPRequestHandler):
 
-class ChatResponse(BaseModel):
-    response: str
+    def log_message(self, format, *args):
+        pass  # suppress default request logs
 
-# --- Chat endpoint ---
-@app.post("/api/chat", response_model=ChatResponse)
-async def chat(req: ChatRequest):
-    client = get_client()
+    def _cors(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
 
-    # Build conversation history for Gemini
-    contents = []
-    for msg in req.history:
-        contents.append(
-            types.Content(
-                role=msg.role,
-                parts=[types.Part(text=msg.content)]
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self._cors()
+        self.end_headers()
+
+    def do_POST(self):
+        from google import genai
+        from google.genai import types
+
+        try:
+            length = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(length))
+
+            client = genai.Client(
+                api_key=get_secret("GEMINI_WORKSHOP_API_KEY"),
+                http_options={
+                    "api_version": "v1alpha",
+                    "base_url": get_secret("GEMINI_WORKSHOP_BASE_URL"),
+                },
             )
-        )
-    contents.append(
-        types.Content(
-            role="user",
-            parts=[types.Part(text=req.message)]
-        )
-    )
 
-    response = client.models.generate_content(
-        model="gemini-3-flash-preview",
-        contents=contents,
-        config=types.GenerateContentConfig(
-            system_instruction=SYSTEM_PROMPT,
-            temperature=0.3,
-        )
-    )
+            contents = []
+            for msg in body.get("history", []):
+                contents.append(types.Content(
+                    role=msg["role"],
+                    parts=[types.Part(text=msg["content"])]
+                ))
+            contents.append(types.Content(
+                role="user",
+                parts=[types.Part(text=body["message"])]
+            ))
 
-    return ChatResponse(response=response.text)
+            resp = client.models.generate_content(
+                model="gemini-3-flash-preview",
+                contents=contents,
+                config=types.GenerateContentConfig(
+                    system_instruction=SYSTEM_PROMPT,
+                    temperature=0.3,
+                ),
+            )
+
+            result = json.dumps({"response": resp.text})
+            self.send_response(200)
+        except Exception as e:
+            result = json.dumps({"error": str(e)})
+            self.send_response(500)
+
+        self._cors()
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        self.wfile.write(result.encode())
