@@ -101,7 +101,7 @@ export const groups = {
     id: 'H',
     teams: [
       { name: 'Spain', pot: 1, flag: '🇪🇸', position: 1 },
-      { name: 'Cape Verde', pot: 4, flag: '🇨🇻', position: 2 },
+      { name: 'Cabo Verde', pot: 4, flag: '🇨🇻', position: 2 },
       { name: 'Saudi Arabia', pot: 3, flag: '🇸🇦', position: 3 },
       { name: 'Uruguay', pot: 2, flag: '🇺🇾', position: 4 }
     ]
