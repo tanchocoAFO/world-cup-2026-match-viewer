@@ -359,9 +359,9 @@ function App() {
           </button>
         )}
 
-        {/* Built with Memex Badge */}
+        {/* Built with Workshop Badge */}
         <a
-          href="https://memex.tech?utm_source=built_with_memex"
+          href="https://workshop.ai/?utm_source=wccal"
           target="_blank"
           rel="noopener noreferrer"
           className="group"
@@ -369,12 +369,12 @@ function App() {
           <div className="px-4 py-2 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <div className="flex items-center gap-2">
               <img 
-                src="/memex-logo.svg" 
-                alt="Memex" 
+                src="/workshop-logo.svg" 
+                alt="Workshop" 
                 className="w-5 h-5"
               />
               <span className="text-sm font-light text-slate-700 tracking-wide">
-                Built with <span className="font-medium text-slate-900">Memex</span>
+                Built with <span className="font-medium text-slate-900">Workshop</span>
               </span>
             </div>
           </div>
