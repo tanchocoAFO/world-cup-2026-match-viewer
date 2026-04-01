@@ -13,7 +13,7 @@ const GroupsView = ({ onGroupClick }) => {
             <h2 className="text-2xl font-light text-slate-900 tracking-wide">Tournament Groups</h2>
           </div>
           <p className="text-xs text-slate-500 ml-4 tracking-wide uppercase">
-            Draw: December 5, 2025 • Most teams TBD
+            Draw: December 5, 2025 • All 48 teams confirmed
           </p>
         </div>
         
