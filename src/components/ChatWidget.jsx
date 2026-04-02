@@ -103,12 +103,16 @@ export default function ChatWidget() {
                 {msg.role === 'model' && (
                   <span className="text-base mr-1.5 flex-shrink-0 mt-0.5">⚽</span>
                 )}
-                <div className={`max-w-[85%] px-3 py-2 text-xs leading-relaxed font-light whitespace-pre-wrap
+                <div className={`max-w-[85%] px-3 py-2 text-xs leading-relaxed font-light
                   ${msg.role === 'user'
                     ? 'bg-slate-900 text-white'
                     : 'bg-white border border-slate-200 text-slate-800'
                   }`}>
-                  {msg.content}
+                  {msg.content.split('\n').map((line, i) => (
+                    <p key={i} className={`${line.startsWith('- ') ? 'pl-2' : ''} ${i > 0 && line === '' ? 'mt-1' : ''} ${i > 0 ? 'mt-0.5' : ''}`}>
+                      {line || '\u00A0'}
+                    </p>
+                  ))}
                 </div>
               </div>
             ))}

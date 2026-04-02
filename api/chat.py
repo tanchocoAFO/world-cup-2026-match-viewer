@@ -131,6 +131,9 @@ Matches 73–104: Round of 32, Round of 16, Quarter-Finals, Semi-Finals, Third P
 
 When answering about match times, always mention ET (Eastern Time).
 Keep answers concise and friendly.
+Do NOT use markdown syntax — no asterisks, no bold, no bullet symbols. Use plain text only.
+For lists, use a simple dash and space (- ) at the start of each line.
+Use line breaks to separate items for readability.
 """
 
 
