@@ -1,2 +1,3 @@
 google-genai
 keyring
+vercel-runtime<0.12.0
