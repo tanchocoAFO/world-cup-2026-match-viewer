@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import Markdown from 'react-markdown'
 
 const SUGGESTED_QUESTIONS = [
   'When does France play?',
@@ -108,11 +109,19 @@ export default function ChatWidget() {
                     ? 'bg-slate-900 text-white'
                     : 'bg-white border border-slate-200 text-slate-800'
                   }`}>
-                  {msg.content.split('\n').map((line, i) => (
-                    <p key={i} className={`${line.startsWith('- ') ? 'pl-2' : ''} ${i > 0 && line === '' ? 'mt-1' : ''} ${i > 0 ? 'mt-0.5' : ''}`}>
-                      {line || '\u00A0'}
-                    </p>
-                  ))}
+                  {msg.role === 'user' ? msg.content : (
+                    <Markdown
+                      components={{
+                        p: ({children}) => <p className="mb-1 last:mb-0">{children}</p>,
+                        strong: ({children}) => <span className="font-semibold">{children}</span>,
+                        ul: ({children}) => <ul className="mt-1 space-y-0.5">{children}</ul>,
+                        ol: ({children}) => <ol className="mt-1 space-y-0.5 list-decimal list-inside">{children}</ol>,
+                        li: ({children}) => <li className="flex gap-1.5"><span className="text-amber-500 flex-shrink-0">–</span><span>{children}</span></li>,
+                      }}
+                    >
+                      {msg.content}
+                    </Markdown>
+                  )}
                 </div>
               </div>
             ))}
