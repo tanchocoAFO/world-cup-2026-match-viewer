@@ -1,5 +1,21 @@
 import { getVenue } from '../data/worldCupData'
 
+// Group color map: left-border + badge bg/text
+const GROUP_COLORS = {
+  A: { border: 'border-rose-500',    bg: 'bg-rose-50',    text: 'text-rose-800'    },
+  B: { border: 'border-orange-500',  bg: 'bg-orange-50',  text: 'text-orange-800'  },
+  C: { border: 'border-amber-500',   bg: 'bg-amber-50',   text: 'text-amber-800'   },
+  D: { border: 'border-lime-500',    bg: 'bg-lime-50',    text: 'text-lime-800'    },
+  E: { border: 'border-emerald-500', bg: 'bg-emerald-50', text: 'text-emerald-800' },
+  F: { border: 'border-teal-500',    bg: 'bg-teal-50',    text: 'text-teal-800'    },
+  G: { border: 'border-cyan-500',    bg: 'bg-cyan-50',    text: 'text-cyan-800'    },
+  H: { border: 'border-sky-500',     bg: 'bg-sky-50',     text: 'text-sky-800'     },
+  I: { border: 'border-blue-500',    bg: 'bg-blue-50',    text: 'text-blue-800'    },
+  J: { border: 'border-violet-500',  bg: 'bg-violet-50',  text: 'text-violet-800'  },
+  K: { border: 'border-purple-500',  bg: 'bg-purple-50',  text: 'text-purple-800'  },
+  L: { border: 'border-pink-500',    bg: 'bg-pink-50',    text: 'text-pink-800'    },
+}
+
 const MatchCard = ({ match, onClick, isFavorite, onToggleFavorite }) => {
   const venue = getVenue(match.venue)
   
@@ -33,6 +49,7 @@ const MatchCard = ({ match, onClick, isFavorite, onToggleFavorite }) => {
   }
 
   const stageStyle = getStageStyle(match.stage)
+  const groupColor = match.group ? GROUP_COLORS[match.group] : null
 
   const handleFavoriteClick = (e) => {
     e.stopPropagation() // Prevent card click from firing
@@ -62,8 +79,8 @@ const MatchCard = ({ match, onClick, isFavorite, onToggleFavorite }) => {
       </button>
 
       {/* Stage Badge */}
-      <div className={`${stageStyle.bg} border-l-4 ${stageStyle.border} py-2 px-4`}>
-        <div className={`text-xs uppercase tracking-wider font-medium ${stageStyle.text}`}>
+      <div className={`${groupColor ? groupColor.bg : stageStyle.bg} border-l-4 ${groupColor ? groupColor.border : stageStyle.border} py-2 px-4`}>
+        <div className={`text-xs uppercase tracking-wider font-medium ${groupColor ? groupColor.text : stageStyle.text}`}>
           {match.stage}
           {match.group && ` • Group ${match.group}`}
         </div>

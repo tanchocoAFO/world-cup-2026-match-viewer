@@ -8,14 +8,29 @@ import Countdown from './components/Countdown'
 import KnockoutBracket from './components/KnockoutBracket'
 import GroupsView from './components/GroupsView'
 import GroupModal from './components/GroupModal'
+import ChatWidget from './components/ChatWidget'
 
 function App() {
-  const [selectedStage, setSelectedStage] = useState('all')
-  const [selectedGroup, setSelectedGroup] = useState('all')
-  const [selectedTeam, setSelectedTeam] = useState('all')
-  const [selectedVenue, setSelectedVenue] = useState('all')
-  const [selectedDate, setSelectedDate] = useState('all')
-  const [searchQuery, setSearchQuery] = useState('')
+  // Initialize filter state from URL params
+  const getInitialParams = () => {
+    const p = new URLSearchParams(window.location.search)
+    return {
+      stage: p.get('stage') || 'all',
+      group: p.get('group') || 'all',
+      team: p.get('team') || 'all',
+      venue: p.get('venue') || 'all',
+      date: p.get('date') || 'all',
+      search: p.get('search') || '',
+    }
+  }
+  const initial = getInitialParams()
+
+  const [selectedStage, setSelectedStage] = useState(initial.stage)
+  const [selectedGroup, setSelectedGroup] = useState(initial.group)
+  const [selectedTeam, setSelectedTeam] = useState(initial.team)
+  const [selectedVenue, setSelectedVenue] = useState(initial.venue)
+  const [selectedDate, setSelectedDate] = useState(initial.date)
+  const [searchQuery, setSearchQuery] = useState(initial.search)
   const [selectedMatch, setSelectedMatch] = useState(null)
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
   const [isViewingBracket, setIsViewingBracket] = useState(false)
@@ -41,6 +56,20 @@ function App() {
         : [...prev, matchId]
     )
   }
+
+  // Sync filter state to URL params
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (selectedStage !== 'all') params.set('stage', selectedStage)
+    if (selectedGroup !== 'all') params.set('group', selectedGroup)
+    if (selectedTeam !== 'all') params.set('team', selectedTeam)
+    if (selectedVenue !== 'all') params.set('venue', selectedVenue)
+    if (selectedDate !== 'all') params.set('date', selectedDate)
+    if (searchQuery) params.set('search', searchQuery)
+    const qs = params.toString()
+    const newUrl = qs ? `${window.location.pathname}?${qs}` : window.location.pathname
+    window.history.replaceState(null, '', newUrl)
+  }, [selectedStage, selectedGroup, selectedTeam, selectedVenue, selectedDate, searchQuery])
 
   // Check URL for match parameter and auto-open modal
   useEffect(() => {
@@ -322,6 +351,9 @@ function App() {
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        {/* AI Chat Widget */}
+        <ChatWidget />
+
         {/* Jump to Bracket/Calendar Button - Hidden on mobile since bracket is hidden */}
         {Object.keys(knockoutStageByDate).length > 0 && (
           <button
