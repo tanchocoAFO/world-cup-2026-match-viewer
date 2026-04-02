@@ -127,7 +127,49 @@ Match 69 | Jun 27 | 22:00 | Kansas City | Group J | Algeria vs Austria
 Match 70 | Jun 27 | 22:00 | Dallas | Group J | Jordan vs Argentina
 Match 71 | Jun 27 | 19:30 | Miami | Group K | Colombia vs Portugal
 Match 72 | Jun 27 | 19:30 | Atlanta | Group K | DR Congo vs Uzbekistan
-Matches 73–104: Round of 32, Round of 16, Quarter-Finals, Semi-Finals, Third Place (Jul 14), Final (Jul 19 at MetLife Stadium, New York/NJ)
+ROUND OF 32:
+Match 73 | Jun 28 | 15:00 | Los Angeles | Group A 2nd vs Group B 2nd
+Match 74 | Jun 29 | 16:30 | Boston | Group E 1st vs Best 3rd (Groups A/B/C/D/F)
+Match 75 | Jun 29 | 16:30 | Monterrey | Group F 1st vs Group C 2nd
+Match 76 | Jun 29 | 13:00 | Houston | Group C 1st vs Group F 2nd
+Match 77 | Jun 30 | 13:00 | New York/NJ | Group I 1st vs Best 3rd (Groups C/D/F/G/H)
+Match 78 | Jun 30 | 17:00 | Dallas | Group E 2nd vs Group I 2nd
+Match 79 | Jun 30 | 21:00 | Mexico City | Group A 1st vs Best 3rd (Groups C/E/F/H/I)
+Match 80 | Jul 01 | 12:00 | Atlanta | Group L 1st vs Best 3rd (Groups E/H/I/J/K)
+Match 81 | Jul 01 | 20:00 | San Francisco | Group D 1st vs Best 3rd (Groups B/E/F/I/J)
+Match 82 | Jul 01 | 16:00 | Seattle | Group G 1st vs Best 3rd (Groups A/E/H/I/J)
+Match 83 | Jul 02 | 21:00 | Toronto | Group K 2nd vs Group L 2nd
+Match 84 | Jul 02 | 15:00 | Los Angeles | Group H 1st vs Group J 2nd
+Match 85 | Jul 02 | 23:00 | Vancouver | Group B 1st vs Best 3rd (Groups E/F/G/I/J)
+Match 86 | Jul 03 | 18:00 | Miami | Group J 1st vs Group H 2nd
+Match 87 | Jul 03 | 14:00 | Dallas | Group K 1st vs Best 3rd (Groups D/E/I/J/L)
+Match 88 | Jul 03 | 21:30 | Kansas City | Group D 2nd vs Group G 2nd
+
+ROUND OF 16:
+Match 89 | Jul 04 | 17:00 | Philadelphia | Winner M74 vs Winner M77
+Match 90 | Jul 04 | 13:00 | Houston | Winner M73 vs Winner M75
+Match 91 | Jul 05 | 16:00 | New York/NJ | Winner M76 vs Winner M78
+Match 92 | Jul 05 | 20:00 | Mexico City | Winner M79 vs Winner M80
+Match 93 | Jul 06 | 15:00 | Dallas | Winner M83 vs Winner M84
+Match 94 | Jul 06 | 20:00 | Seattle | Winner M81 vs Winner M82
+Match 95 | Jul 07 | 12:00 | Atlanta | Winner M86 vs Winner M88
+Match 96 | Jul 07 | 16:00 | Vancouver | Winner M85 vs Winner M87
+
+QUARTER-FINALS:
+Match 97 | Jul 09 | 16:00 | Boston | Winner M89 vs Winner M90
+Match 98 | Jul 10 | 15:00 | Los Angeles | Winner M93 vs Winner M94
+Match 99 | Jul 11 | 17:00 | Miami | Winner M91 vs Winner M92
+Match 100 | Jul 11 | 21:00 | Kansas City | Winner M95 vs Winner M96
+
+SEMI-FINALS:
+Match 101 | Jul 14 | 15:00 | Dallas | Winner M97 vs Winner M98
+Match 102 | Jul 15 | 15:00 | Atlanta | Winner M99 vs Winner M100
+
+THIRD PLACE:
+Match 103 | Jul 18 | 17:00 | Miami | Loser M101 vs Loser M102
+
+FINAL:
+Match 104 | Jul 19 | 15:00 | New York/NJ (MetLife Stadium) | Winner M101 vs Winner M102
 
 When answering about match times, always mention ET (Eastern Time).
 Keep answers concise and friendly.
