@@ -146,26 +146,26 @@ export const groups = {
 
 // Complete match schedule (104 total matches)
 export const matches = [
-  { id: 1, matchNumber: 1, date: '2026-06-11', time: '15:00', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs South Africa (Opening Match)' },
-  { id: 2, matchNumber: 2, date: '2026-06-11', time: '22:00', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'South Korea vs Czechia' },
-  { id: 3, matchNumber: 3, date: '2026-06-12', time: '15:00', venue: 'tor', stage: stages.GROUP, group: 'B', description: 'Canada vs Bosnia and Herzegovina' },
-  { id: 4, matchNumber: 4, date: '2026-06-12', time: '21:00', venue: 'la', stage: stages.GROUP, group: 'D', description: 'USA vs Paraguay' },
-  { id: 5, matchNumber: 5, date: '2026-06-13', time: '21:00', venue: 'bos', stage: stages.GROUP, group: 'C', description: 'Haiti vs Scotland' },
-  { id: 6, matchNumber: 6, date: '2026-06-13', time: '00:00', venue: 'sf', stage: stages.GROUP, group: 'B', description: 'Qatar vs Switzerland' },
-  { id: 7, matchNumber: 7, date: '2026-06-13', time: '18:00', venue: 'nyj', stage: stages.GROUP, group: 'C', description: 'Brazil vs Morocco' },
-  { id: 8, matchNumber: 8, date: '2026-06-14', time: '15:00', venue: 'van', stage: stages.GROUP, group: 'D', description: 'Australia vs Türkiye' },
-  { id: 9, matchNumber: 9, date: '2026-06-14', time: '19:00', venue: 'phi', stage: stages.GROUP, group: 'E', description: 'Ivory Coast vs Ecuador' },
-  { id: 10, matchNumber: 10, date: '2026-06-14', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'E', description: 'Germany vs Curacao' },
-  { id: 11, matchNumber: 11, date: '2026-06-14', time: '16:00', venue: 'dal', stage: stages.GROUP, group: 'F', description: 'Netherlands vs Japan' },
-  { id: 12, matchNumber: 12, date: '2026-06-14', time: '22:00', venue: 'mty', stage: stages.GROUP, group: 'F', description: 'Sweden vs Tunisia' },
-  { id: 13, matchNumber: 13, date: '2026-06-15', time: '18:00', venue: 'mia', stage: stages.GROUP, group: 'H', description: 'Saudi Arabia vs Uruguay' },
-  { id: 14, matchNumber: 14, date: '2026-06-15', time: '12:00', venue: 'atl', stage: stages.GROUP, group: 'H', description: 'Spain vs Cabo Verde' },
-  { id: 15, matchNumber: 15, date: '2026-06-15', time: '21:00', venue: 'la', stage: stages.GROUP, group: 'G', description: 'Iran vs New Zealand' },
-  { id: 16, matchNumber: 16, date: '2026-06-15', time: '15:00', venue: 'sea', stage: stages.GROUP, group: 'G', description: 'Belgium vs Egypt' },
-  { id: 17, matchNumber: 17, date: '2026-06-16', time: '15:00', venue: 'nyj', stage: stages.GROUP, group: 'I', description: 'France vs Senegal' },
-  { id: 18, matchNumber: 18, date: '2026-06-16', time: '15:00', venue: 'bos', stage: stages.GROUP, group: 'I', description: 'Iraq vs Norway' },
-  { id: 19, matchNumber: 19, date: '2026-06-16', time: '21:00', venue: 'kc', stage: stages.GROUP, group: 'J', description: 'Argentina vs Algeria' },
-  { id: 20, matchNumber: 20, date: '2026-06-17', time: '00:00', venue: 'sf', stage: stages.GROUP, group: 'J', description: 'Austria vs Jordan' },
+  { id: 1, matchNumber: 1, date: '2026-06-11', time: '15:00', venue: 'mex', stage: stages.GROUP, group: 'A', description: 'Mexico vs South Africa (Opening Match)', result: { home: 2, away: 0 } },
+  { id: 2, matchNumber: 2, date: '2026-06-11', time: '22:00', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'South Korea vs Czechia', result: { home: 2, away: 1 } },
+  { id: 3, matchNumber: 3, date: '2026-06-12', time: '15:00', venue: 'tor', stage: stages.GROUP, group: 'B', description: 'Canada vs Bosnia and Herzegovina', result: { home: 1, away: 1 } },
+  { id: 4, matchNumber: 4, date: '2026-06-12', time: '21:00', venue: 'la', stage: stages.GROUP, group: 'D', description: 'USA vs Paraguay', result: { home: 4, away: 1 } },
+  { id: 5, matchNumber: 5, date: '2026-06-13', time: '21:00', venue: 'bos', stage: stages.GROUP, group: 'C', description: 'Haiti vs Scotland', result: { home: 0, away: 1 } },
+  { id: 6, matchNumber: 6, date: '2026-06-13', time: '00:00', venue: 'sf', stage: stages.GROUP, group: 'B', description: 'Qatar vs Switzerland', result: { home: 1, away: 1 } },
+  { id: 7, matchNumber: 7, date: '2026-06-13', time: '18:00', venue: 'nyj', stage: stages.GROUP, group: 'C', description: 'Brazil vs Morocco', result: { home: 1, away: 1 } },
+  { id: 8, matchNumber: 8, date: '2026-06-14', time: '15:00', venue: 'van', stage: stages.GROUP, group: 'D', description: 'Australia vs Türkiye', result: { home: 2, away: 0 } },
+  { id: 9, matchNumber: 9, date: '2026-06-14', time: '19:00', venue: 'phi', stage: stages.GROUP, group: 'E', description: 'Ivory Coast vs Ecuador', result: { home: 1, away: 0 } },
+  { id: 10, matchNumber: 10, date: '2026-06-14', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'E', description: 'Germany vs Curacao', result: { home: 7, away: 1 } },
+  { id: 11, matchNumber: 11, date: '2026-06-14', time: '16:00', venue: 'dal', stage: stages.GROUP, group: 'F', description: 'Netherlands vs Japan', result: { home: 2, away: 2 } },
+  { id: 12, matchNumber: 12, date: '2026-06-14', time: '22:00', venue: 'mty', stage: stages.GROUP, group: 'F', description: 'Sweden vs Tunisia', result: { home: 5, away: 1 } },
+  { id: 13, matchNumber: 13, date: '2026-06-15', time: '18:00', venue: 'mia', stage: stages.GROUP, group: 'H', description: 'Saudi Arabia vs Uruguay', result: { home: 1, away: 1 } },
+  { id: 14, matchNumber: 14, date: '2026-06-15', time: '12:00', venue: 'atl', stage: stages.GROUP, group: 'H', description: 'Spain vs Cabo Verde', result: { home: 0, away: 0 } },
+  { id: 15, matchNumber: 15, date: '2026-06-15', time: '21:00', venue: 'la', stage: stages.GROUP, group: 'G', description: 'Iran vs New Zealand', result: { home: 2, away: 2 } },
+  { id: 16, matchNumber: 16, date: '2026-06-15', time: '15:00', venue: 'sea', stage: stages.GROUP, group: 'G', description: 'Belgium vs Egypt', result: { home: 1, away: 1 } },
+  { id: 17, matchNumber: 17, date: '2026-06-16', time: '15:00', venue: 'nyj', stage: stages.GROUP, group: 'I', description: 'France vs Senegal', result: { home: 3, away: 1 } },
+  { id: 18, matchNumber: 18, date: '2026-06-16', time: '15:00', venue: 'bos', stage: stages.GROUP, group: 'I', description: 'Iraq vs Norway', result: { home: 1, away: 4 } },
+  { id: 19, matchNumber: 19, date: '2026-06-16', time: '21:00', venue: 'kc', stage: stages.GROUP, group: 'J', description: 'Argentina vs Algeria', result: { home: 3, away: 0 } },
+  { id: 20, matchNumber: 20, date: '2026-06-17', time: '00:00', venue: 'sf', stage: stages.GROUP, group: 'J', description: 'Austria vs Jordan', result: { home: 3, away: 1 } },
   { id: 21, matchNumber: 21, date: '2026-06-17', time: '19:00', venue: 'tor', stage: stages.GROUP, group: 'L', description: 'Ghana vs Panama' },
   { id: 22, matchNumber: 22, date: '2026-06-17', time: '16:00', venue: 'dal', stage: stages.GROUP, group: 'L', description: 'England vs Croatia' },
   { id: 23, matchNumber: 23, date: '2026-06-17', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'K', description: 'Portugal vs DR Congo' },
@@ -318,4 +318,47 @@ export const getMatchesByDate = (date) => {
 // Helper function to get unique dates
 export const getUniqueDates = () => {
   return [...new Set(matches.map(m => m.date))].sort();
+};
+
+// Compute live standings for a group from match results
+export const getGroupStandings = (groupId) => {
+  const group = groups[groupId];
+  if (!group) return [];
+
+  const table = {};
+  group.teams.forEach(team => {
+    table[team.name] = { team, gp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 };
+  });
+
+  const groupMatches = matches.filter(m => m.group === groupId && m.result);
+  groupMatches.forEach(m => {
+    const desc = m.description;
+    // Extract team names from description ("TeamA vs TeamB ...")
+    const vsMatch = desc.match(/^(.+?)\s+vs\s+(.+?)(?:\s*\(|$)/);
+    if (!vsMatch) return;
+    const homeName = vsMatch[1].trim();
+    const awayName = vsMatch[2].trim();
+    const { home: hg, away: ag } = m.result;
+
+    if (!table[homeName] || !table[awayName]) return;
+
+    table[homeName].gp++; table[awayName].gp++;
+    table[homeName].gf += hg; table[homeName].ga += ag;
+    table[awayName].gf += ag; table[awayName].ga += hg;
+
+    if (hg > ag) {
+      table[homeName].w++; table[homeName].pts += 3;
+      table[awayName].l++;
+    } else if (ag > hg) {
+      table[awayName].w++; table[awayName].pts += 3;
+      table[homeName].l++;
+    } else {
+      table[homeName].d++; table[homeName].pts++;
+      table[awayName].d++; table[awayName].pts++;
+    }
+  });
+
+  return Object.values(table).sort((a, b) =>
+    b.pts - a.pts || (b.gf - b.ga) - (a.gf - a.ga) || b.gf - a.gf
+  );
 };

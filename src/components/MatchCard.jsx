@@ -1,4 +1,17 @@
-import { getVenue } from '../data/worldCupData'
+import { getVenue, groups } from '../data/worldCupData'
+
+// Flat map of team name → flag for quick lookup
+const TEAM_FLAGS = Object.values(groups).flatMap(g => g.teams).reduce((acc, t) => {
+  acc[t.name] = t.flag
+  return acc
+}, {})
+
+// Parse "Home vs Away (optional)" → [homeName, awayName]
+const parseTeams = (description) => {
+  const m = description?.match(/^(.+?)\s+vs\s+(.+?)(?:\s*\(|$)/)
+  if (!m) return [null, null]
+  return [m[1].trim(), m[2].trim()]
+}
 
 // Group color map: left-border + badge bg/text
 const GROUP_COLORS = {
@@ -79,11 +92,14 @@ const MatchCard = ({ match, onClick, isFavorite, onToggleFavorite }) => {
       </button>
 
       {/* Stage Badge */}
-      <div className={`${groupColor ? groupColor.bg : stageStyle.bg} border-l-4 ${groupColor ? groupColor.border : stageStyle.border} py-2 px-4`}>
+      <div className={`${groupColor ? groupColor.bg : stageStyle.bg} border-l-4 ${groupColor ? groupColor.border : stageStyle.border} py-2 px-4 flex items-center justify-between`}>
         <div className={`text-xs uppercase tracking-wider font-medium ${groupColor ? groupColor.text : stageStyle.text}`}>
           {match.stage}
           {match.group && ` • Group ${match.group}`}
         </div>
+        {match.result && (
+          <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Final</span>
+        )}
       </div>
 
       {/* Match Info */}
@@ -93,11 +109,40 @@ const MatchCard = ({ match, onClick, isFavorite, onToggleFavorite }) => {
           <div className="text-lg font-normal text-slate-900 mb-2 leading-snug">
             {match.description || 'TBD vs TBD'}
           </div>
-          <div className="flex items-center gap-2 text-xs font-light text-slate-500">
-            <span>{formatTime(match.time)}</span>
-            <span>•</span>
-            <span>Match #{match.matchNumber}</span>
-          </div>
+          {match.result ? (
+            /* Score display for completed matches */
+            (() => {
+              const [homeName, awayName] = parseTeams(match.description)
+              const homeFlag = TEAM_FLAGS[homeName]
+              const awayFlag = TEAM_FLAGS[awayName]
+              return (
+                <div className="flex items-center gap-2 mt-3 mb-1">
+                  {homeFlag && <span className="text-2xl leading-none">{homeFlag}</span>}
+                  <div className="text-3xl font-light text-slate-900 tabular-nums">
+                    {match.result.home}
+                  </div>
+                  <div className="text-xs text-slate-400 uppercase tracking-widest font-medium px-1">FT</div>
+                  <div className="text-3xl font-light text-slate-900 tabular-nums">
+                    {match.result.away}
+                  </div>
+                  {awayFlag && <span className="text-2xl leading-none">{awayFlag}</span>}
+                </div>
+              )
+            })()
+          ) : (
+            <div className="flex items-center gap-2 text-xs font-light text-slate-500">
+              <span>{formatTime(match.time)}</span>
+              <span>•</span>
+              <span>Match #{match.matchNumber}</span>
+            </div>
+          )}
+          {match.result && (
+            <div className="flex items-center gap-2 text-xs font-light text-slate-400 mt-1">
+              <span>{formatTime(match.time)}</span>
+              <span>•</span>
+              <span>Match #{match.matchNumber}</span>
+            </div>
+          )}
         </div>
 
         {/* Venue */}
