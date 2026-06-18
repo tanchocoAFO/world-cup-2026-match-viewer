@@ -171,7 +171,7 @@ export const matches = [
   { id: 23, matchNumber: 23, date: '2026-06-17', time: '13:00', venue: 'hou', stage: stages.GROUP, group: 'K', description: 'Portugal vs DR Congo', result: { home: 1, away: 1 } },
   { id: 24, matchNumber: 24, date: '2026-06-17', time: '22:00', venue: 'mex', stage: stages.GROUP, group: 'K', description: 'Uzbekistan vs Colombia', result: { home: 1, away: 3 } },
   { id: 25, matchNumber: 25, date: '2026-06-18', time: '12:00', venue: 'atl', stage: stages.GROUP, group: 'A', description: 'Czechia vs South Africa' },
-  { id: 26, matchNumber: 26, date: '2026-06-18', time: '12:00', venue: 'la', stage: stages.GROUP, group: 'B', description: 'Switzerland vs Bosnia and Herzegovina' },
+  { id: 26, matchNumber: 26, date: '2026-06-18', time: '15:00', venue: 'la', stage: stages.GROUP, group: 'B', description: 'Switzerland vs Bosnia and Herzegovina' },
   { id: 27, matchNumber: 27, date: '2026-06-18', time: '18:00', venue: 'van', stage: stages.GROUP, group: 'B', description: 'Canada vs Qatar' },
   { id: 28, matchNumber: 28, date: '2026-06-18', time: '21:00', venue: 'gdl', stage: stages.GROUP, group: 'A', description: 'Mexico vs South Korea' },
   { id: 29, matchNumber: 29, date: '2026-06-19', time: '21:00', venue: 'phi', stage: stages.GROUP, group: 'C', description: 'Brazil vs Haiti' },
